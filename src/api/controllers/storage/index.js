@@ -1,0 +1,1 @@
+export { default as uploadFileController } from './uploadFileController.js'

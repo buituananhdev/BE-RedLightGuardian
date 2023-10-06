@@ -1,0 +1,5 @@
+export { default as createVehicleController } from './createVehicleController.js'
+export { default as deleteVehicleByIdController } from './deleteVehicleByIdController.js'
+export { default as getVehicleByIdController } from './getVehicleByIdController.js'
+export { default as updateVehicleByIdController } from './updateVehicleByIdController.js'
+export { default as getAllVehiclesController } from './getAllVehiclesController.js'

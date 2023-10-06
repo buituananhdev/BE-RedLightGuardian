@@ -1,4 +1,4 @@
-import { dbDatabase, dbUser, dbPassword } from '../config/index.js';
+import { dbDatabase, dbUser, dbPassword } from './index.js';
 import express from 'express';
 import Sequelize from 'sequelize';
 const app = express();
@@ -17,8 +17,8 @@ sequelize
     console.error('MySQL connected fail:', err);
   });
 
-sequelize.sync({ force: false }).then(() => {
-    console.log('Database synced');
-});
+// sequelize.sync({ force: false }).then(() => {
+//     console.log('Database synced');
+// });
 
 export default sequelize;
