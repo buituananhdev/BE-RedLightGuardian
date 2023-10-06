@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import sequelize from '../config/database.js';
+import sequelize from '../config/database.config.js';
 import Vehicle from './vehicle.js';
 
 const Violation = sequelize.define('violation', {

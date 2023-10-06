@@ -1,7 +1,7 @@
 // owner.js
 
 import Sequelize from 'sequelize';
-import sequelize from '../config/database.js';
+import sequelize from '../config/database.config.js';
 
 const Owner = sequelize.define('owner', {
   id: {
