@@ -1,44 +1,33 @@
-const express = require('express');
-const http = require('http');
-const fs = require('fs');
-const bodyParser = require('body-parser');
+import express from 'express';
+import fs from 'fs'
+import multer from 'multer';
+
+import cors from 'cors'
 const app = express();
+app.use(cors())
+const port = 3012;
 
-app.use(bodyParser.json());
+// Sử dụng Multer để xử lý tệp tin được gửi lên
+const storage = multer.memoryStorage(); // Lưu trữ ảnh trong bộ nhớ
+const upload = multer({ storage: storage });
 
-// Đường dẫn tới thư mục chứa ảnh
-const imageFolder = 'images';
+// Định tuyến cho API
+app.post('/upload', upload.single('photo'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('Vui lòng gửi ảnh.');
+    }
 
-// Tạo thư mục ảnh nếu chưa tồn tại
-if (!fs.existsSync(imageFolder)) {
-    fs.mkdirSync(imageFolder);
-}
+    // Lưu ảnh vào máy tính của bạn
+    const imageBuffer = req.file.buffer;
+    const imagePath = './images' + Date.now() + '.jpg';
 
-// Xử lý yêu cầu nhận ảnh từ ESP32-CAM
-app.post('/upload', (req, res) => {
-    const imageData = req.body.imageData;
+    fs.writeFileSync(imagePath, imageBuffer);
 
-    // Tạo tên file ảnh dựa trên thời gian hiện tại
-    const timestamp = Date.now();
-    const imageName = `${timestamp}.jpg`;
-    const imagePath = `${imageFolder}/${imageName}`;
-
-    // Lưu ảnh vào thư mục
-    fs.writeFile(imagePath, imageData, 'base64', (err) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-        } else {
-            console.log(`Ảnh đã được lưu tại: ${imagePath}`);
-            res.status(200).send('Ảnh đã được nhận và lưu trữ.');
-        }
-    });
+    return res.send(
+        'Ảnh đã được tải lên thành công và lưu trữ tại: ' + imagePath
+    );
 });
 
-// Tạo server HTTP để lắng nghe yêu cầu từ ESP32-CAM
-const server = http.createServer(app);
-const PORT = 3000;
-
-server.listen(PORT, () => {
-    console.log(`Server đang lắng nghe trên cổng ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server đang lắng nghe tại cổng ${port}`);
 });
