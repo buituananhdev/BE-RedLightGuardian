@@ -4,7 +4,7 @@ import { errorHelper, getText } from '../../../../utils/index.js';
 export default async (req, res) => {
   
   return res.status(200).json({
-    resultMessage: { en: getText('en', '00050'), tr: getText('tr', '00050') },
+    resultMessage: getText('en', '00050'),
     resultCode: '00050'
   });
 };

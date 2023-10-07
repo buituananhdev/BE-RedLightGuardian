@@ -36,10 +36,7 @@ export default (app) => {
 
   app.get('/', (_req, res) => {
     return res.status(200).json({
-      resultMessage: {
-        en: 'Project is successfully working...',
-        tr: 'Proje başarılı bir şekilde çalışıyor...'
-      },
+      resultMessage: 'Project is successfully working...',
       resultCode: '00004'
     }).end();
   });
@@ -74,10 +71,7 @@ export default (app) => {
       level = 'Client Error';
     }
     return res.json({
-      resultMessage: {
-        en: error.message,
-        tr: error.message
-      },
+      resultMessage: error.message,
       resultCode: resultCode,
     });
 

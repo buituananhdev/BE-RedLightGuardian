@@ -26,7 +26,7 @@ export default async (req, res) => {
     await Token.deleteOne({ userId: req.user._id });
 
     return res.status(200).json({
-      resultMessage: { en: getText('en', '00092'), tr: getText('tr', '00092') },
+      resultMessage: getText('en', '00092'),
       resultCode: '00092',
     });
   } catch (err) {
