@@ -1,19 +1,23 @@
 import Sequelize from 'sequelize';
 import sequelize from '../config/database.config.js';
 
-const Owner = sequelize.define('owner', {
+const Camera = sequelize.define('camera', {
   id: {
     type: Sequelize.STRING,
     primaryKey: true,
   },
-  name: Sequelize.STRING,
-  citizen_identification: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
   },
-  address: Sequelize.STRING,
-  email: Sequelize.STRING
+  location: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  coordinates: {
+    type: Sequelize.STRING
+  }
 });
 
-export default Owner;
+export default Camera;
