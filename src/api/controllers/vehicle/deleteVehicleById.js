@@ -1,42 +1,44 @@
-import { User } from '../../../models/index.js';
+import { Vehicle } from '../../../models/index.js';
 import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
     const vehicleId = req.params.vehicleId;
-    const user = await User.findByPk(vehicleId);
-    if (!user) {
-      res.status(404).json(errorHelper('00002', req, 'User not found'));
+    const vehicle = await Vehicle.findByPk(vehicleId);
+
+    if (!vehicle) {
+      res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
     } else {
-      res.json(user);
+      await vehicle.destroy();
+      res.json({ message: 'Vehicle deleted successfully' });
     }
   } catch (error) {
-    res.status(500).json(errorHelper('00003', req, error.message));
+    res.status(500).json(errorHelper('00005', req, error.message));
   }
 };
 
 /**
  * @swagger
- * /users/{userId}:
- *   get:
- *     summary: Get a user by ID
- *     tags: [User]
+ * /vehicles/{vehicleId}:
+ *   delete:
+ *     summary: Delete a vehicle by ID
+ *     tags: [Vehicle]
  *     parameters:
  *       - in: path
  *         name: vehicleId
  *         required: true
- *         description: ID of the user
+ *         description: ID of the vehicle
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: User details
+ *         description: Vehicle deleted successfully.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/Result'
  *       404:
- *         description: User not found
+ *         description: Vehicle not found
  *         content:
  *           application/json:
  *             schema:

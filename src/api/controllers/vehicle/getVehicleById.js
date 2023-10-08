@@ -5,38 +5,36 @@ export default async (req, res) => {
   try {
     const vehicleId = req.params.vehicleId;
     const vehicle = await Vehicle.findByPk(vehicleId);
-
     if (!vehicle) {
       res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
     } else {
-      await vehicle.destroy();
-      res.json({ message: 'Vehicle deleted successfully' });
+      res.json(vehicle);
     }
   } catch (error) {
-    res.status(500).json(errorHelper('00005', req, error.message));
+    res.status(500).json(errorHelper('00003', req, error.message));
   }
 };
 
 /**
  * @swagger
  * /vehicles/{vehicleId}:
- *   delete:
- *     summary: Delete a vehicle by ID
+ *   get:
+ *     summary: Get a vehicle by ID
  *     tags: [Vehicle]
  *     parameters:
  *       - in: path
  *         name: vehicleId
- *         required: true
- *         description: ID of the vehicle
  *         schema:
  *           type: string
+ *         required: true
+ *         description: ID of the vehicle
  *     responses:
  *       200:
- *         description: Vehicle deleted successfully.
+ *         description: Vehicle details
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Result'
+ *               $ref: '#/components/schemas/Vehicle'
  *       404:
  *         description: Vehicle not found
  *         content:
