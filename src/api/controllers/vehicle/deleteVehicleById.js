@@ -4,25 +4,24 @@ import { errorHelper } from '../../../utils/index.js';
 export default async (req, res) => {
   try {
     const vehicleId = req.params.vehicleId;
-    const updatedVehicleData = req.body;
     const vehicle = await Vehicle.findByPk(vehicleId);
 
     if (!vehicle) {
       res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
     } else {
-      await vehicle.update(updatedVehicleData);
-      res.json(vehicle);
+      await vehicle.destroy();
+      res.json({ message: 'Vehicle deleted successfully' });
     }
   } catch (error) {
-    res.status(500).json(errorHelper('00004', req, error.message));
+    res.status(500).json(errorHelper('00005', req, error.message));
   }
 };
 
 /**
  * @swagger
  * /vehicles/{vehicleId}:
- *   put:
- *     summary: Update a vehicle by ID
+ *   delete:
+ *     summary: Delete a vehicle by ID
  *     tags: [Vehicle]
  *     parameters:
  *       - in: path
@@ -31,19 +30,13 @@ export default async (req, res) => {
  *         description: ID of the vehicle
  *         schema:
  *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Vehicle'
  *     responses:
  *       200:
- *         description: Vehicle updated successfully.
+ *         description: Vehicle deleted successfully.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Vehicle'
+ *               $ref: '#/components/schemas/Result'
  *       404:
  *         description: Vehicle not found
  *         content:

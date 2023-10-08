@@ -15,7 +15,8 @@ export default async (req, res) => {
  * /vehicles:
  *   get:
  *     summary: Get all vehicles
- *     tags: [Vehicle]
+ *     tags: 
+ *       - Vehicle
  *     responses:
  *       200:
  *         description: List of vehicles.

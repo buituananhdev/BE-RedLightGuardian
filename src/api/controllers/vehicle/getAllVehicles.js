@@ -3,33 +3,28 @@ import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const newVehicleData = req.body;
-    const vehicle = await Vehicle.create(newVehicleData);
-    res.status(201).json(vehicle);
+    const vehicles = await Vehicle.findAll();
+    res.json(vehicles);
   } catch (error) {
-    res.status(500).json(errorHelper('00001', req, error.message));
+    res.status(500).json(errorHelper('00006', req, error.message));
   }
 };
 
 /**
  * @swagger
  * /vehicles:
- *   post:
- *     summary: Create a new vehicle
+ *   get:
+ *     summary: Get all vehicles
  *     tags: [Vehicle]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Vehicle'
  *     responses:
- *       201:
- *         description: Vehicle created successfully.
+ *       200:
+ *         description: List of vehicles.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Vehicle'
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Vehicle'
  *       500:
  *         description: An internal server error occurred, please try again.
  *         content:

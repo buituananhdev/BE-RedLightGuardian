@@ -1,1 +1,1 @@
-export { default as uploadFileController } from './uploadFileController.js'
+export { default as uploadFile } from './uploadFile.js'
