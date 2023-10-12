@@ -1,10 +1,10 @@
-import { dbDatabase, dbUser, dbPassword } from './index.js';
+import { dbDatabase, dbUser, dbPassword, dbHost } from './index.js';
 import express from 'express';
 import Sequelize from 'sequelize';
 const app = express();
 
 const sequelize = new Sequelize(dbDatabase, dbUser, dbPassword, {
-  host: 'localhost',
+  host: dbHost,
   dialect: 'mysql',
 });
 

@@ -6,7 +6,7 @@ export default async (req, res) => {
     const vehicles = await Vehicle.findAll();
     res.json(vehicles);
   } catch (error) {
-    res.status(500).json(errorHelper('00006', req, error.message));
+    res.status(500).json(error);
   }
 };
 
