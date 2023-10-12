@@ -1,16 +1,15 @@
 import { User } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = parseInt(req.params.id);
     const user = await User.findByPk(userId);
-
     if (!user) {
       res.status(404).json(errorHelper('00002', req, 'User not found'));
     } else {
       await user.destroy();
-      res.json({ message: 'User deleted successfully' });
+      res.json(responseHelper('success', 'Delete user successful!'));
     }
   } catch (error) {
     res.status(500).json(errorHelper('00005', req, error.message));
