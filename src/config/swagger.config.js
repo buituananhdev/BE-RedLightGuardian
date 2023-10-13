@@ -13,7 +13,7 @@ export default {
     basePath: '/api',
     servers: [
       {
-        url: 'http://localhost:8080/api/',
+        url: 'https://quy-1.pularbacc.com/api/',
       },
     ],
   },
