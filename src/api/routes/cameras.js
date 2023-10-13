@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createCamera, getAllCameras, getCameraById, updateCameraById, deleteCameraById } from '../controllers/vehicle/index.js'
+import { createCamera, getAllCameras, getCameraById, updateCameraById, deleteCameraById } from '../controllers/camera/index.js'
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createOwner, getAllOwners, getOwnerById, updateOwnerById, deleteOwnerById } from '../controllers/vehicle/index.js'
+import { createOwner, getAllOwners, getOwnerById, updateOwnerById, deleteOwnerById } from '../controllers/owner/index.js'
 
 const router = Router();
 
