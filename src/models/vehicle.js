@@ -10,7 +10,6 @@ const Vehicle = sequelize.define("vehicle", {
   licensePlate: Sequelize.STRING,
   ownerID: Sequelize.STRING,
   vehicleType: Sequelize.ENUM("car", "motorcycle"),
-  manufacturer: Sequelize.STRING,
   engineCapacity: Sequelize.FLOAT,
   color: Sequelize.STRING,
   frameNumber: Sequelize.STRING,
