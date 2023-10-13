@@ -32,6 +32,9 @@ export default {
     "src/utils/helpers/*.js",
     "src/api/controllers/user/*.js",
     "src/api/controllers/user/edit/*.js",
-    "src/api/controllers/user/auth/*.js"
+    "src/api/controllers/user/auth/*.js",
+    "src/api/controllers/vehicle/*.js",
+    "src/api/controllers/storages/*.js",
+    "src/api/controllers/camera/*.js"
   ]
 };
