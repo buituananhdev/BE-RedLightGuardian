@@ -35,6 +35,7 @@ export default {
     "src/api/controllers/user/auth/*.js",
     "src/api/controllers/vehicle/*.js",
     "src/api/controllers/storages/*.js",
-    "src/api/controllers/camera/*.js"
+    "src/api/controllers/camera/*.js",
+    "src/api/controllers/owner/*.js",
   ]
 };

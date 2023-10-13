@@ -1,0 +1,5 @@
+export { default as createOwner } from './createOwner.js'
+export { default as deleteOwnerById } from './deleteOwnerById.js'
+export { default as getOwnerById } from './getOwnerById.js'
+export { default as updateOwnerById } from './updateOwnerById.js'
+export { default as getAllOwners } from './getAllOwners.js'
