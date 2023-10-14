@@ -14,6 +14,7 @@ export default {
     servers: [
       {
         url: 'https://quy-1.pularbacc.com/api/',
+        url: "http://localhost:3011/api/"
       },
     ],
   },
@@ -30,6 +31,7 @@ export default {
   apis: [
     "src/models/*.js",
     "src/utils/helpers/*.js",
+    "src/api/controllers/auth/*.js",
     "src/api/controllers/user/*.js",
     "src/api/controllers/user/edit/*.js",
     "src/api/controllers/user/auth/*.js",

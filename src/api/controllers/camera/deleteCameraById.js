@@ -1,5 +1,5 @@
 import { Camera } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { responseHelper, errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
@@ -10,7 +10,7 @@ export default async (req, res) => {
       res.status(404).json(errorHelper('00002', req, 'Camera not found'));
     } else {
       await camera.destroy();
-      res.json({ message: 'Camera deleted successfully' });
+      res.json(responseHelper('success', 'Camera deleted successfully'));
     }
   } catch (error) {
     res.status(500).json(errorHelper('00005', req, error.message));
