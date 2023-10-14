@@ -7,6 +7,7 @@ import vehicles from './vehicles.js';
 import users from './users.js';
 import cameras from './cameras.js';
 import owners from './owners.js';
+import auth from './auth.js'
 
 const router = Router();
 
@@ -15,6 +16,7 @@ const specDoc = swaggerJsdoc(swaggerConfig);
 router.use(specs, serve);
 router.get(specs, setup(specDoc, { explorer: true }));
 
+router.use('/auth', auth);
 router.use('/storages', storages);
 router.use('/vehicles', vehicles);
 router.use('/users', users);

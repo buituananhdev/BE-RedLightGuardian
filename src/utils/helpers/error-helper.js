@@ -17,9 +17,7 @@ export default (code, req, errorMessage) => {
   }
 
   return {
-    'resultMessage': {
-      'en': enMessage,
-    },
+    'resultMessage': enMessage,
     'resultCode': code
   };
 };

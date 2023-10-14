@@ -1,13 +1,13 @@
 import { Camera } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { responseHelper, errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
     const newCameraData = req.body;
     const camera = await Camera.create(newCameraData);
-    res.status(201).json(camera);
+    res.status(201).json(responseHelper('success', '', camera));
   } catch (error) {
-    res.status(500).json(errorHelper('00001', req, error.message));
+    res.status(500).json(errorHelper('500', req, error.message));
   }
 };
 

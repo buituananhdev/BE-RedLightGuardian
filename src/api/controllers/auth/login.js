@@ -1,5 +1,5 @@
-import { User } from "../../../../models/index.js";
-import { errorHelper } from "../../../../utils/index.js";
+import { User } from "../../../models/index.js";
+import { responseHelper, errorHelper, signRefreshToken, signAccessToken } from "../../../utils/index.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -16,12 +16,9 @@ export default async (req, res) => {
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      const token = jwt.sign(
-        { username: username, user_id: user.id },
-        process.env.JWT_SECRET_KEY,
-        { algorithm: "HS256", expiresIn: "1d", issuer: "TuanAnh" }
-      );
-      return res.status(200).json({ status: "success", access_token: token });
+      const accessToken = signAccessToken(user.id);
+      const refreshToken = signRefreshToken(user.id);
+      return res.status(200).json(responseHelper('success', '', { access_token: accessToken, refresh_token: refreshToken, expires_in: 24 * 60 * 60, created_at: Date.now() }));
     } else {
       return res.status(404).json(errorHelper("00002", req, "Invalid username or password"));
     }
