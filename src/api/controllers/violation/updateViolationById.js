@@ -1,17 +1,17 @@
-import Vehicle from '../../../models/vehicle.js';
+import Violation from '../../../models/violation.js';
 import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const vehicleId = parseInt(req.params.id);
-    const updatedVehicleData = req.body;
-    const vehicle = await Vehicle.findByPk(vehicleId);
+    const violationId = parseInt(req.params.id);
+    const updatedViolationData = req.body;
+    const violation = await Violation.findByPk(violationId);
 
-    if (!vehicle) {
-      res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
+    if (!violation) {
+      res.status(404).json(errorHelper('00002', req, 'Violation not found'));
     } else {
-      await vehicle.update(updatedVehicleData);
-      res.json(responseHelper('success', 'Vehicle updated successful', vehicle))
+      await violation.update(updatedViolationData);
+      res.json(responseHelper('success', 'Violation updated successful', violation))
 
     }
   } catch (error) {
@@ -20,16 +20,16 @@ export default async (req, res) => {
 };
 /**
  * @swagger
- * /vehicle/{vehicleId}:
+ * /violation/{violationId}:
  *    put:
- *      summary: Update vehicle information by ID
+ *      summary: Update violation information by ID
  *      parameters:
  *        - in: path
- *          name: vehicleId
+ *          name: violationId
  *          schema:
  *            type: string
  *          required: true
- *          description: Vehicle ID
+ *          description: Violation ID
  *        - in: header
  *          name: Authorization
  *          schema:
@@ -40,18 +40,18 @@ export default async (req, res) => {
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Vehicle'
+ *              $ref: '#/components/schemas/Violation'
  *      tags:
- *        - Vehicle
+ *        - Violation
  *      responses:
  *        "200":
- *          description: Vehicle information updated successfully.
+ *          description: Violation information updated successfully.
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/Vehicle'
+ *                      $ref: '#/components/schemas/Violation'
  *        "404":
- *          description: Vehicle not found.
+ *          description: Violation not found.
  *          content:
  *              application/json:
  *                  schema:

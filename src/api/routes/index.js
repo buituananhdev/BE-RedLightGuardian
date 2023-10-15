@@ -7,7 +7,8 @@ import vehicles from './vehicles.js';
 import users from './users.js';
 import cameras from './cameras.js';
 import owners from './owners.js';
-import auth from './auth.js'
+import auth from './auth.js';
+import violations from './violations.js'
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/vehicles', vehicles);
 router.use('/users', users);
 router.use('/cameras', cameras);
 router.use('/owners', owners);
+router.use('/violations', violations);
 
 export default router;
