@@ -8,7 +8,7 @@ export default async (req, res) => {
     if (!owner) {
       res.status(404).json(errorHelper('00002', req, 'Owner not found'));
     } else {
-      res.json(owner);
+      res.status(200).json(responseHelper('success', '', owner))
     }
   } catch (error) {
     res.status(500).json(errorHelper('00003', req, error.message));

@@ -11,7 +11,8 @@ export default async (req, res) => {
       res.status(404).json(errorHelper('00002', req, 'User not found'));
     } else {
       await user.update(updatedUserData);
-      res.json(user);
+      res.json(responseHelper('success', 'User updated successful', user))
+
     }
   } catch (error) {
     res.status(500).json(errorHelper('00004', req, error.message));

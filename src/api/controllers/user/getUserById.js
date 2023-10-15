@@ -8,7 +8,7 @@ export default async (req, res) => {
     if (!user) {
       res.status(404).json(errorHelper('00002', req, 'User not found'));
     } else {
-      res.json(user);
+      res.json(responseHelper('success', '', user))
     }
   } catch (error) {
     res.status(500).json(errorHelper('00003', req, error.message));
