@@ -3,7 +3,7 @@ import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const cameraId = req.params.cameraId;
+    const cameraId = parseInt(req.params.id);
     const updatedVehicleData = req.body;
     const camera = await Vehicle.findByPk(cameraId);
 
