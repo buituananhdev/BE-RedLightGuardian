@@ -3,8 +3,8 @@ import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const vehicleId = req.params.vehicleId;
-    const user = await User.findByPk(vehicleId);
+    const userId = parseInt(req.params.id);
+    const user = await User.findByPk(userId);
     if (!user) {
       res.status(404).json(errorHelper('00002', req, 'User not found'));
     } else {

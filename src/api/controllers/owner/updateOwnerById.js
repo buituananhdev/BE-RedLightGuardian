@@ -3,7 +3,7 @@ import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const ownerId = req.params.ownerId;
+    const ownerId = parseInt(req.params.id);
     const updatedOwnerData = req.body;
     const owner = await Owner.findByPk(ownerId);
 

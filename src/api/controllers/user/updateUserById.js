@@ -3,7 +3,7 @@ import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = parseInt(req.params.id);
     const updatedUserData = req.body;
     const user = await User.findByPk(userId);
 
