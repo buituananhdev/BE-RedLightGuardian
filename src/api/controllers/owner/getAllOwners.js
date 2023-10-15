@@ -1,12 +1,22 @@
 import { Owner } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { errorHelper, responseHelper, pagingHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const owners = await Owner.findAll();
-    res.json(owners);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+
+    const offset = (page - 1) * pageSize;
+    const owners = await Owner.findAll({
+      limit: pageSize,
+      offset: offset,
+    });
+
+    const totalOwners = await Owner.count();
+    const meta = pagingHelper(page, pageSize, totalOwners);
+    res.json(responseHelper('success', 'Get all owners successful!', owners, meta));
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(errorHelper('00006', req, error.message));
   }
 };
 
