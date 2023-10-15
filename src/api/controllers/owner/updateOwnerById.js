@@ -11,7 +11,7 @@ export default async (req, res) => {
       res.status(404).json(errorHelper('00002', req, 'Owner not found'));
     } else {
       await owner.update(updatedOwnerData);
-      res.json(owner);
+      res.status(200).json(responseHelper('success', 'Owner updated successfully'))
     }
   } catch (error) {
     res.status(500).json(errorHelper('00004', req, error.message));

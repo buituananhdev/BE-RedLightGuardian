@@ -5,7 +5,7 @@ export default async (req, res) => {
   try {
     const newOwnerData = req.body;
     const owner = await Owner.create(newOwnerData);
-    res.status(201).json(owner);
+    res.status(201).json(responseHelper('success', 'Create user successfully', owner))
   } catch (error) {
     res.status(500).json(errorHelper('00001', req, error.message));
   }
