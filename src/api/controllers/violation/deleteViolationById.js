@@ -1,15 +1,15 @@
-import { Vehicle } from '../../../models/index.js';
+import { Violation } from '../../../models/index.js';
 import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const vehicleId = parseInt(req.params.id);
-    const vehicle = await Vehicle.findByPk(vehicleId);
-    if (!vehicle) {
-      res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
+    const violationId = parseInt(req.params.id);
+    const violation = await Violation.findByPk(violationId);
+    if (!violation) {
+      res.status(404).json(errorHelper('00002', req, 'Violation not found'));
     } else {
-      await vehicle.destroy();
-      res.json(responseHelper('success', 'Delete vehicle successful!'));
+      await violation.destroy();
+      res.json(responseHelper('success', 'Delete violation successful!'));
     }
   } catch (error) {
     res.status(500).json(errorHelper('00005', req, error.message));
@@ -18,21 +18,21 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /vehicle/{vehicleId}:
+ * /violation/{violationId}:
  *    delete:
- *      summary: Delete vehicle by ID
+ *      summary: Delete violation by ID
  *      parameters:
  *        - in: path
- *          name: vehicleId
+ *          name: violationId
  *          required: true
- *          description: ID of the vehicle to delete
+ *          description: ID of the violation to delete
  *          schema:
  *            type: integer
  *      tags:
- *        - Vehicle
+ *        - Violation
  *      responses:
  *        "200":
- *          description: Vehicle deleted successfully.
+ *          description: Violation deleted successfully.
  *          content:
  *            application/json:
  *              schema:
@@ -40,9 +40,9 @@ export default async (req, res) => {
  *                properties:
  *                  message:
  *                    type: string
- *                    description: A success message indicating the vehicle has been deleted.
+ *                    description: A success message indicating the violation has been deleted.
  *        "404":
- *          description: Vehicle not found.
+ *          description: Violation not found.
  *          content:
  *            application/json:
  *              schema:

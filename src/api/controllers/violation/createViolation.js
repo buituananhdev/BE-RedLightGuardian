@@ -1,22 +1,22 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
-import { Vehicle } from '../../../models/index.js';
+import { Violation } from '../../../models/index.js';
 import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const { vehiclename, password } = req.body;
+    const { violationname, password } = req.body;
     const id = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newVehicleData = {
+    const newViolationData = {
       id: id,
-      vehiclename: vehiclename,
+      violationname: violationname,
       password: hashedPassword,
     };
 
-    const vehicle = await Vehicle.create(newVehicleData);
-    res.status(201).json(responseHelper('success', '', vehicle))
+    const violation = await Violation.create(newViolationData);
+    res.status(201).json(responseHelper('success', '', violation))
   } catch (error) {
     res.status(500).json(errorHelper('00001', req, error.message));
   }
@@ -24,9 +24,9 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /vehicle:
+ * /violation:
  *    post:
- *      summary: Create a new vehicle
+ *      summary: Create a new violation
  *      requestBody:
  *        required: true
  *        content:
@@ -34,30 +34,30 @@ export default async (req, res) => {
  *            schema:
  *              type: object
  *              properties:
- *                vehiclename:
+ *                violationname:
  *                  type: string
- *                  description: The vehiclename of the vehicle.
+ *                  description: The violationname of the violation.
  *                email:
  *                  type: string
  *                  format: email
- *                  description: The email address of the vehicle.
+ *                  description: The email address of the violation.
  *                password:
  *                  type: string
  *                  format: password
- *                  description: The password for the vehicle account.
+ *                  description: The password for the violation account.
  *              required:
- *                - vehiclename
+ *                - violationname
  *                - email
  *                - password
  *      tags:
- *        - Vehicle
+ *        - Violation
  *      responses:
  *        "201":
- *          description: Vehicle created successfully.
+ *          description: Violation created successfully.
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Vehicle'
+ *                $ref: '#/components/schemas/Violation'
  *        "500":
  *          description: An internal server error occurred, please try again.
  *          content:

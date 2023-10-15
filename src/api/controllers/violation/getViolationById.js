@@ -1,14 +1,14 @@
-import { Vehicle } from '../../../models/index.js';
+import { Violation } from '../../../models/index.js';
 import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const vehicleId = parseInt(req.params.id);
-    const vehicle = await Vehicle.findByPk(vehicleId);
-    if (!vehicle) {
-      res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
+    const violationId = parseInt(req.params.id);
+    const violation = await Violation.findByPk(violationId);
+    if (!violation) {
+      res.status(404).json(errorHelper('00002', req, 'Violation not found'));
     } else {
-      res.json(responseHelper('success', '', vehicle))
+      res.json(responseHelper('success', '', violation))
     }
   } catch (error) {
     res.status(500).json(errorHelper('00003', req, error.message));
@@ -16,26 +16,26 @@ export default async (req, res) => {
 };
 /**
  * @swagger
- * /vehicles/{vehicleId}:
+ * /violations/{violationId}:
  *   get:
- *     summary: Get a vehicle by ID
- *     tags: [Vehicle]
+ *     summary: Get a violation by ID
+ *     tags: [Violation]
  *     parameters:
  *       - in: path
- *         name: vehicleId
+ *         name: violationId
  *         required: true
- *         description: ID of the vehicle
+ *         description: ID of the violation
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: Vehicle details
+ *         description: Violation details
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Vehicle'
+ *               $ref: '#/components/schemas/Violation'
  *       404:
- *         description: Vehicle not found
+ *         description: Violation not found
  *         content:
  *           application/json:
  *             schema:
