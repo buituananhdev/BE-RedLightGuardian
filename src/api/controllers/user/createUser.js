@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { User } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
