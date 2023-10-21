@@ -6,14 +6,23 @@ const Owner = sequelize.define('owner', {
     type: Sequelize.STRING,
     primaryKey: true,
   },
-  name: Sequelize.STRING,
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   citizen_identification: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
   },
-  address: Sequelize.STRING,
-  email: Sequelize.STRING
-});
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
+})
 
 export default Owner;

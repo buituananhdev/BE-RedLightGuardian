@@ -1,21 +1,32 @@
-import Sequelize from 'sequelize';
-import sequelize from '../config/database.config.js';
-import Vehicle from './vehicle.js';
-import Camera from './camera.js'
+import Sequelize from "sequelize";
+import sequelize from "../config/database.config.js";
+import Vehicle from "./vehicle.js";
+import Camera from "./camera.js";
 
-const Violation = sequelize.define('violation', {
+const Violation = sequelize.define("violation", {
   id: {
     type: Sequelize.STRING,
     primaryKey: true,
   },
-  name: Sequelize.STRING,
-  vehicleID: Sequelize.STRING,
+  type: Sequelize.ENUM("Run a red light"),
+  deadline: Sequelize.BIGINT,
+  status: Sequelize.ENUM("paid fine", "unpaid fine", "overdue"),
+  vehicleID: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   time: Sequelize.BIGINT,
-  cameraID: Sequelize.STRING,
-  imageUrl: Sequelize.STRING,
+  cameraID: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
-Violation.belongsTo(Vehicle, { foreignKey: 'vehicleID' });
-Violation.belongsTo(Camera, { foreignKey: 'cameraID' });
+Violation.belongsTo(Vehicle, { foreignKey: "vehicleID", onDelete: "CASCADE" });
+Violation.belongsTo(Camera, { foreignKey: "cameraID", onDelete: "CASCADE" });
 
 export default Violation;

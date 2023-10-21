@@ -38,5 +38,6 @@ export default {
     "src/api/controllers/storages/*.js",
     "src/api/controllers/camera/*.js",
     "src/api/controllers/owner/*.js",
+    "src/api/controllers/violation/*.js",
   ]
 };
