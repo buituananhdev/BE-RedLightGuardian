@@ -9,7 +9,6 @@ const Camera = sequelize.define('camera', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   location: {
     type: Sequelize.STRING,
