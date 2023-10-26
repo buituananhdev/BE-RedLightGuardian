@@ -1,7 +1,6 @@
 import { User } from "../../../models/index.js";
 import { responseHelper, errorHelper, signRefreshToken, signAccessToken } from "../../../utils/index.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
   const { username, password } = req.body;

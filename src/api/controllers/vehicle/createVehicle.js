@@ -6,6 +6,7 @@ import { errorHelper, responseHelper } from '../../../utils/index.js';
 export default async (req, res) => {
   try {
     const newVehicleData = req.body;
+    newVehicleData.id = uuidv4();
     const vehicle = await Vehicle.create(newVehicleData);
     res.status(201).json(responseHelper('success', '', vehicle))
   } catch (error) {

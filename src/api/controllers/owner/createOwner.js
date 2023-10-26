@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Owner } from '../../../models/index.js';
 import { errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
     const newOwnerData = req.body;
+    newOwnerData.id = uuidv4();
     const owner = await Owner.create(newOwnerData);
     res.status(201).json(responseHelper('success', 'Create user successfully', owner))
   } catch (error) {
