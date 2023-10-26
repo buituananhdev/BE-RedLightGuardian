@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Camera } from '../../../models/index.js';
 import { responseHelper, errorHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
     const newCameraData = req.body;
+    newCameraData.id = uuidv4();
     const camera = await Camera.create(newCameraData);
     res.status(201).json(responseHelper('success', '', camera));
   } catch (error) {
