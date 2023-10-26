@@ -5,16 +5,7 @@ import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const { vehiclename, password } = req.body;
-    const id = uuidv4();
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newVehicleData = {
-      id: id,
-      vehiclename: vehiclename,
-      password: hashedPassword,
-    };
-
+    const newVehicleData = req.body;
     const vehicle = await Vehicle.create(newVehicleData);
     res.status(201).json(responseHelper('success', '', vehicle))
   } catch (error) {
