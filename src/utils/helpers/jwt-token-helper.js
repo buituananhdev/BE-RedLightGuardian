@@ -1,5 +1,5 @@
 import pkg from "jsonwebtoken";
-const { sign } = pkg;
+const { sign, verify } = pkg;
 import { jwtSecretKey, refreshTokenSecretKey } from "../../config/index.js";
 
 export function signAccessToken(userId) {
@@ -28,6 +28,6 @@ export function signConfirmCodeToken(userId, confirmCode) {
 
 export function getUserIdFromToken(req) {
   const token = req.headers["authorization"].slice(7);
-  const verify = jwt.verify(token, jwtSecretKey);
-  return verify._id;
+  const verified = verify(token, jwtSecretKey);
+  return verified._id;
 }
