@@ -10,7 +10,7 @@ export default async (req, res) => {
     const vehicle = await Vehicle.create(newVehicleData);
     res.status(201).json(responseHelper('success', '', vehicle))
   } catch (error) {
-    res.status(500).json(errorHelper('00001', req, error.message));
+    res.status(500).json(responseHelper("failure", error.message));
   }
 };
 

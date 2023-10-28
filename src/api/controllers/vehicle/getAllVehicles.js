@@ -16,7 +16,7 @@ export default async (req, res) => {
     const meta = pagingHelper(page, pageSize, totalVehicles);
     res.json(responseHelper('success', 'Get all vehicles successful!', vehicles, meta));
   } catch (error) {
-    res.status(500).json(errorHelper('00006', req, error.message));
+    res.status(500).json(responseHelper("failure", error.message));
   }
 };
 
