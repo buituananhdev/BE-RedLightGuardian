@@ -34,15 +34,11 @@ export default async (req, res) => {
  *                email:
  *                  type: string
  *                  description: The email address of the owner.
- *                password:
- *                  type: string
- *                  description: The password for the owner account.
  *              required:
  *                - name
  *                - citizen_identification
  *                - address
  *                - email
- *                - password
  *      tags:
  *        - Owner
  *      responses:

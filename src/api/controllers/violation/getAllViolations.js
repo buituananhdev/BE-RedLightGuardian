@@ -1,39 +1,9 @@
-import { Violation } from '../../../models/index.js';
-import { responseHelper, pagingHelper } from '../../../utils/index.js';
-import { Op } from 'sequelize';
-
+import { responseHelper } from '../../../utils/index.js';
+import { getAllViolation } from '../../../services/database/violation.service.js';
 export default async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 10;
-    const offset = (page - 1) * pageSize;
-
-    let whereClause = {};
-
-    if (req.query.type) {
-      whereClause.type = req.query.type;
-    }
-    if (req.query.status) {
-      whereClause.status = req.query.status;
-    }
-    if (req.query.cameraID) {
-      whereClause.cameraID = req.query.cameraID;
-    }
-    if (req.query.startDate && req.query.endDate) {
-      whereClause.deadline = {
-        [Op.between]: [new Date(req.query.startDate), new Date(req.query.endDate)],
-      };
-    }
-
-    const violations = await Violation.findAll({
-      where: whereClause,
-      limit: pageSize,
-      offset: offset,
-    });
-
-    const totalViolations = await Violation.count({ where: whereClause });
-    const meta = pagingHelper(page, pageSize, totalViolations);
-    res.json(responseHelper('success', 'Get violations successful!', violations, meta));
+    const result = await getAllViolation(req);
+    res.json(responseHelper('success', 'Get violations successful!', result.violations, result.meta));
   } catch (error) {
     res.status(500).json(responseHelper('failure', error.message));
   }

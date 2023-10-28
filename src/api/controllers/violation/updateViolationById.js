@@ -1,22 +1,21 @@
-import Violation from '../../../models/violation.js';
 import { responseHelper } from '../../../utils/index.js';
+import { updateViolationById } from '../../../services/database/violation.service.js';
 
 export default async (req, res) => {
   try {
-    const updatedViolationData = req.body;
-    const violation = await Violation.findByPk(req.params.id);
+    const flag = await updateViolationById(req.params.id, req.body);
 
-    if (!violation) {
+    if (!flag) {
       res.status(404).json(responseHelper("failure",'Violation not found'));
     } else {
-      await violation.update(updatedViolationData);
-      res.json(responseHelper('success', 'Violation updated successful', violation))
+      res.json(responseHelper('success', 'Violation updated successful'))
 
     }
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));
   }
 };
+
 /**
  * @swagger
  * /violations/{violationId}:
