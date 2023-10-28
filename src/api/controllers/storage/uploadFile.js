@@ -1,9 +1,9 @@
 import { responseHelper } from "../../../utils/index.js";
 
-export default async (req, res, next) => {
+export default async (req, res) => {
   try {
     if (!req.file) {
-      res.status(400).json(errorHelper("00008", req, "No file uploaded!"));
+      res.status(400).json(responseHelper("failure", "No file uploaded!"));
       return;
     }
     res.json(
@@ -29,7 +29,7 @@ export default async (req, res, next) => {
  *           schema:
  *             type: object
  *             properties:
- *               image:
+ *               file:
  *                 type: string
  *                 format: binary
  *     responses:
