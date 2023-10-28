@@ -11,7 +11,7 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /user/logout:
+ * /auth/logout:
  *    post:
  *      summary: Logout the User
  *      parameters:

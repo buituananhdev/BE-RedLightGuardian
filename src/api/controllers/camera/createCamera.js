@@ -25,21 +25,19 @@ export default async (req, res) => {
  *            schema:
  *              type: object
  *              properties:
- *                cameraname:
+ *                name:
  *                  type: string
- *                  description: The cameraname of the camera.
- *                email:
+ *                  description: The name of the camera.
+ *                location:
  *                  type: string
- *                  format: email
- *                  description: The email address of the camera.
- *                password:
+ *                  description: The location of the camera.
+ *                coordinates:
  *                  type: string
- *                  format: password
- *                  description: The password for the camera account.
+ *                  description: The coordinates of the camera.
  *              required:
- *                - cameraname
- *                - email
- *                - password
+ *                - name
+ *                - location
+ *                - coordinates
  *      tags:
  *        - Camera
  *      responses:
