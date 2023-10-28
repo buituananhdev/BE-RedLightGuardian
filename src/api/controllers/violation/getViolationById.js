@@ -1,12 +1,12 @@
 import { Violation } from '../../../models/index.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
+import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
     const violationId = parseInt(req.params.id);
     const violation = await Violation.findByPk(violationId);
     if (!violation) {
-      res.status(404).json(errorHelper('00002', req, 'Violation not found'));
+      res.status(404).json(responseHelper("failure",'Violation not found'));
     } else {
       res.json(responseHelper('success', '', violation))
     }

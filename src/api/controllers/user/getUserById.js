@@ -1,19 +1,19 @@
-import { User } from '../../../models/index.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
-
+import { responseHelper } from "../../../utils/index.js";
+import { getUserById } from "../../../services/database/user.services.js";
 export default async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
-    const user = await User.findByPk(userId);
+    const user = await getUserById(userId);
     if (!user) {
-      res.status(404).json(errorHelper('00002', req, 'User not found'));
+      res.status(404).json(responseHelper("failure", "User not found!"));
     } else {
-      res.json(responseHelper('success', '', user))
+      res.json(responseHelper("success", "", user));
     }
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));
   }
 };
+
 /**
  * @swagger
  * /users/{userId}:

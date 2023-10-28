@@ -1,13 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
-import { Vehicle } from '../../../models/index.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
-
+import { responseHelper } from '../../../utils/index.js';
+import { createVehicle } from '../../../services/database/vehicle.service.js';
 export default async (req, res) => {
   try {
-    const newVehicleData = req.body;
-    newVehicleData.id = uuidv4();
-    const vehicle = await Vehicle.create(newVehicleData);
+    const vehicle = await createVehicle(req.body);
     res.status(201).json(responseHelper('success', '', vehicle))
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));

@@ -14,6 +14,11 @@ export default {
     servers: [
       {
         url: "https://quy-1.pularbacc.com/api/",
+        description: "Production Server",
+      },
+      {
+        url: "http://localhost:3011/api/",
+        description: "Local Development Server",
       },
     ],
   },
@@ -67,7 +72,7 @@ export default {
         type: "object",
         properties: {
           id: { type: "string" },
-          type: { type: "string" },
+          type: { type: "string", enum: ["Run a red light"] },
           deadline: { type: "integer" },
           status: {
             type: "string",

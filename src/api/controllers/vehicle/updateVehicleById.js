@@ -1,23 +1,22 @@
-import Vehicle from '../../../models/vehicle.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
-
+import Vehicle from "../../../models/vehicle.js";
+import { responseHelper } from "../../../utils/index.js";
+import { updateVehicleById } from "../../../services/database/vehicle.service.js";
 export default async (req, res) => {
   try {
     const vehicleId = parseInt(req.params.id);
     const updatedVehicleData = req.body;
-    const vehicle = await Vehicle.findByPk(vehicleId);
+    const flag = await updateVehicleById(vehicleId, updatedVehicleData);
 
-    if (!vehicle) {
-      res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
+    if (!flag) {
+      res.status(404).json(responseHelper("failure", "Vehicle not found"));
     } else {
-      await vehicle.update(updatedVehicleData);
-      res.json(responseHelper('success', 'Vehicle updated successful', vehicle))
-
+      res.json(responseHelper("success", "Vehicle updated successful"));
     }
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));
   }
 };
+
 /**
  * @swagger
  * /vehicles/{vehicleId}:

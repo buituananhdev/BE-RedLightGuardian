@@ -1,16 +1,14 @@
 import { Owner } from '../../../models/index.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
-
+import { responseHelper } from '../../../utils/index.js';
+import { updateOwnerById } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
     const ownerId = parseInt(req.params.id);
-    const updatedOwnerData = req.body;
-    const owner = await Owner.findByPk(ownerId);
+    const owner = await updateOwnerById(ownerId, req.body);
 
     if (!owner) {
-      res.status(404).json(errorHelper('00002', req, 'Owner not found'));
+      res.status(404).json(responseHelper('failure', 'Owner not found'));
     } else {
-      await owner.update(updatedOwnerData);
       res.status(200).json(responseHelper('success', 'Owner updated successfully'))
     }
   } catch (error) {

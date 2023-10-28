@@ -1,36 +1,43 @@
-import { User } from '../../../models/index.js';
-import { errorHelper, responseHelper, pagingHelper } from '../../../utils/index.js';
+import { responseHelper, pagingHelper } from '../../../utils/index.js';
+import { getAllUser } from '../../../services/database/user.services.js';
 
 export default async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 10;
-
-    const offset = (page - 1) * pageSize;
-    const users = await User.findAll({
-      limit: pageSize,
-      offset: offset,
-    });
-
-    const totalUsers = await User.count();
-    const meta = pagingHelper(page, pageSize, totalUsers);
-    res.json(responseHelper('success', 'Get all users successful!', users, meta));
+    const result = await getAllUser(req);
+    res.json(responseHelper('success', 'Get users successful!', result.users, result.meta));
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper('failure', error.message));
   }
 };
-
 
 /**
  * @swagger
  * /users:
  *   get:
- *     summary: Get all users
+ *     summary: Get users based on search criteria
  *     tags: 
  *       - User
+ *     parameters:
+ *       - in: query
+ *         name: key_word
+ *         schema:
+ *           type: string
+ *         description: Keyword to search
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: The page number for pagination
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: The number of items per page for pagination
  *     responses:
  *       200:
- *         description: List of users.
+ *         description: List of users matching the search criteria
  *         content:
  *           application/json:
  *             schema:

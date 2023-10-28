@@ -1,5 +1,5 @@
 import { Camera } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {

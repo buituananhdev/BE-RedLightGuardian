@@ -1,5 +1,5 @@
 import Violation from '../../../models/violation.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
+import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
@@ -8,7 +8,7 @@ export default async (req, res) => {
     const violation = await Violation.findByPk(violationId);
 
     if (!violation) {
-      res.status(404).json(errorHelper('00002', req, 'Violation not found'));
+      res.status(404).json(responseHelper("failure",'Violation not found'));
     } else {
       await violation.update(updatedViolationData);
       res.json(responseHelper('success', 'Violation updated successful', violation))

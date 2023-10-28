@@ -1,5 +1,5 @@
 import { Token } from '../../../models/index.js';
-import { errorHelper, getText } from '../../../utils/index.js';
+import { getText } from '../../../utils/index.js';
 
 export default async (req, res) => {
   

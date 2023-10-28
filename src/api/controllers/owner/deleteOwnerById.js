@@ -1,15 +1,12 @@
-import { Owner } from '../../../models/index.js';
-import { responseHelper, errorHelper } from '../../../utils/index.js';
-
+import { responseHelper } from '../../../utils/index.js';
+import { deleteOwnerById } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
     const ownerId = parseInt(req.params.id);
-    const owner = await Owner.findByPk(ownerId);
-
-    if (!owner) {
-      res.status(404).json(errorHelper('00002', req, 'Owner not found'));
+    const flag = await deleteOwnerById(ownerId);
+    if (!flag) {
+      res.status(404).json(responseHelper('failure', 'Owner not found'));
     } else {
-      await owner.destroy();
       res.json(responseHelper('success', 'Owner deleted successfully'))
     }
   } catch (error) {

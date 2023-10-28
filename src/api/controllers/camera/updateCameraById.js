@@ -1,5 +1,5 @@
 import { Vehicle } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
@@ -8,7 +8,7 @@ export default async (req, res) => {
     const camera = await Vehicle.findByPk(cameraId);
 
     if (!camera) {
-      res.status(404).json(errorHelper('00002', req, 'Vehicle not found'));
+      res.status(404).json(responseHelper("failure",'Vehicle not found'));
     } else {
       await camera.update(updatedVehicleData);
       res.json(camera);
