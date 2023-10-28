@@ -1,13 +1,12 @@
 import { Violation } from '../../../models/index.js';
 import { responseHelper } from '../../../utils/index.js';
-
+import { deleteViolationById } from '../../../services/database/violation.service.js';
 export default async (req, res) => {
   try {
-    const violation = await Violation.findByPk(req.params.id);
-    if (!violation) {
+    const flag = await deleteViolationById(req.params.id);
+    if (!flag) {
       res.status(404).json(responseHelper("failure",'Violation not found'));
     } else {
-      await violation.destroy();
       res.json(responseHelper('success', 'Delete violation successful!'));
     }
   } catch (error) {

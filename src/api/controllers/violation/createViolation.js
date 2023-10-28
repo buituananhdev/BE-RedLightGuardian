@@ -2,12 +2,10 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { Violation } from '../../../models/index.js';
 import { responseHelper } from '../../../utils/index.js';
-
+import { createViolation } from '../../../services/database/violation.service.js';
 export default async (req, res) => {
   try {
-    const newViolationData = req.body;
-    newViolationData.id = uuidv4();
-    const violation = await Violation.create(newViolationData);
+    const violation = await createViolation(req.body);
     res.status(201).json(responseHelper('success', '', violation))
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));
