@@ -5,13 +5,14 @@ import { errorHelper, responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
     const id = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUserData = {
       id: id,
       username: username,
+      email: email,
       password: hashedPassword,
     };
 
