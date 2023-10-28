@@ -27,7 +27,7 @@ export default async (req, res) => {
  *          required: true
  *          description: ID of the violation to delete
  *          schema:
- *            type: integer
+ *            type: string
  *      tags:
  *        - Violation
  *      responses:
