@@ -18,7 +18,7 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /user/{userId}:
+ * /users/{userId}:
  *    delete:
  *      summary: Delete user by ID
  *      parameters:

@@ -20,7 +20,7 @@ export default async (req, res) => {
 };
 /**
  * @swagger
- * /violation/{violationId}:
+ * /violations/{violationId}:
  *    put:
  *      summary: Update violation information by ID
  *      parameters:

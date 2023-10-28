@@ -18,7 +18,7 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /vehicle/{vehicleId}:
+ * /vehicles/{vehicleId}:
  *    delete:
  *      summary: Delete vehicle by ID
  *      parameters:

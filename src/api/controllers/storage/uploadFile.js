@@ -1,20 +1,24 @@
-import { errorHelper } from '../../../utils/index.js';
+import { errorHelper, responseHelper } from "../../../utils/index.js";
 
 export default async (req, res, next) => {
   try {
     if (!req.file) {
-      res.status(400).json(errorHelper('00008', req, 'No file uploaded!'));
+      res.status(400).json(errorHelper("00008", req, "No file uploaded!"));
       return;
     }
-    res.json({ secure_url: req.file.path });
+    res.json(
+      responseHelper("success", "Upload file successful!", {
+        url: req.file.path,
+      })
+    );
   } catch (error) {
-    res.status(500).json(errorHelper('00009', req, error.message));
+    res.status(500).json(errorHelper("00009", req, error.message));
   }
 };
 
 /**
  * @swagger
- * /images/upload:
+ * /storages/upload:
  *   post:
  *     summary: Upload an image
  *     tags: [Image]

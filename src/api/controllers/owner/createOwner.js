@@ -12,7 +12,6 @@ export default async (req, res) => {
     res.status(500).json(errorHelper('00001', req, error.message));
   }
 };
-
 /**
  * @swagger
  * /owner:
@@ -25,19 +24,25 @@ export default async (req, res) => {
  *            schema:
  *              type: object
  *              properties:
- *                ownername:
+ *                name:
  *                  type: string
- *                  description: The ownername of the owner.
+ *                  description: The name of the owner.
+ *                citizen_identification:
+ *                  type: string
+ *                  description: The citizen identification of the owner.
+ *                address:
+ *                  type: string
+ *                  description: The address of the owner.
  *                email:
  *                  type: string
- *                  format: email
  *                  description: The email address of the owner.
  *                password:
  *                  type: string
- *                  format: password
  *                  description: The password for the owner account.
  *              required:
- *                - ownername
+ *                - name
+ *                - citizen_identification
+ *                - address
  *                - email
  *                - password
  *      tags:

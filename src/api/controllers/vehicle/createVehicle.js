@@ -16,7 +16,7 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /vehicle:
+ * /vehicles:
  *    post:
  *      summary: Create a new vehicle
  *      requestBody:
@@ -26,21 +26,39 @@ export default async (req, res) => {
  *            schema:
  *              type: object
  *              properties:
- *                vehiclename:
+ *                vehicleName:
  *                  type: string
- *                  description: The vehiclename of the vehicle.
- *                email:
+ *                  description: The name of the vehicle.
+ *                licensePlate:
  *                  type: string
- *                  format: email
- *                  description: The email address of the vehicle.
- *                password:
+ *                  description: The license plate of the vehicle.
+ *                engineCapacity:
+ *                  type: number
+ *                  description: The engine capacity of the vehicle (floating-point value).
+ *                color:
  *                  type: string
- *                  format: password
- *                  description: The password for the vehicle account.
+ *                  description: The color of the vehicle.
+ *                frameNumber:
+ *                  type: string
+ *                  description: The frame number of the vehicle.
+ *                engineNumber:
+ *                  type: string
+ *                  description: The engine number of the vehicle.
+ *                brand:
+ *                  type: string
+ *                  description: The brand of the vehicle.
+ *                imageUrl:
+ *                  type: string
+ *                  description: The URL of the vehicle image.
  *              required:
- *                - vehiclename
- *                - email
- *                - password
+ *                - vehicleName
+ *                - licensePlate
+ *                - engineCapacity
+ *                - color
+ *                - frameNumber
+ *                - engineNumber
+ *                - brand
+ *                - imageUrl
  *      tags:
  *        - Vehicle
  *      responses:

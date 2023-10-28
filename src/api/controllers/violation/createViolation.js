@@ -26,21 +26,35 @@ export default async (req, res) => {
  *            schema:
  *              type: object
  *              properties:
- *                violationname:
+ *                type:
  *                  type: string
- *                  description: The violationname of the violation.
- *                email:
+ *                  description: The type of the violation.
+ *                deadline:
+ *                  type: integer
+ *                  description: The deadline timestamp of the violation (in milliseconds).
+ *                status:
  *                  type: string
- *                  format: email
- *                  description: The email address of the violation.
- *                password:
+ *                  description: The status of the violation ("paid fine", "unpaid fine", "overdue").
+ *                vehicleID:
  *                  type: string
- *                  format: password
- *                  description: The password for the violation account.
+ *                  description: The ID of the associated vehicle.
+ *                time:
+ *                  type: integer
+ *                  description: The timestamp of the violation occurrence (in milliseconds).
+ *                cameraID:
+ *                  type: string
+ *                  description: The ID of the camera capturing the violation.
+ *                imageUrl:
+ *                  type: string
+ *                  description: The URL of the violation image.
  *              required:
- *                - violationname
- *                - email
- *                - password
+ *                - type
+ *                - deadline
+ *                - status
+ *                - vehicleID
+ *                - time
+ *                - cameraID
+ *                - imageUrl
  *      tags:
  *        - Violation
  *      responses:

@@ -20,7 +20,7 @@ export default async (req, res) => {
 };
 /**
  * @swagger
- * /vehicle/{vehicleId}:
+ * /vehicles/{vehicleId}:
  *    put:
  *      summary: Update vehicle information by ID
  *      parameters:

@@ -24,7 +24,7 @@ export default async (req, res) => {
 
 /**
  * @swagger
- * /user:
+ * /users:
  *    post:
  *      summary: Create a new user
  *      requestBody:
@@ -43,7 +43,6 @@ export default async (req, res) => {
  *                  description: The email address of the user.
  *                password:
  *                  type: string
- *                  format: password
  *                  description: The password for the user account.
  *              required:
  *                - username

@@ -20,7 +20,7 @@ export default async (req, res) => {
 };
 /**
  * @swagger
- * /user/{userId}:
+ * /users/{userId}:
  *    put:
  *      summary: Update user information by ID
  *      parameters:
