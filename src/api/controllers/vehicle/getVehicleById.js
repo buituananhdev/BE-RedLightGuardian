@@ -3,8 +3,7 @@ import { responseHelper } from "../../../utils/index.js";
 import { getVehicleById } from "../../../services/database/vehicle.service.js";
 export default async (req, res) => {
   try {
-    const vehicleId = parseInt(req.params.id);
-    const vehicle = await getVehicleById(vehicleId);
+    const vehicle = await getVehicleById(req.params.id);
     if (!vehicle) {
       res.status(404).json(responseHelper("failure", "Vehicle not found"));
     } else {

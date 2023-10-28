@@ -1,10 +1,9 @@
 
 import { responseHelper } from '../../../utils/index.js';
-import { deleteUserById } from '../../../services/database/user.services.js';
+import { deleteUserById } from '../../../services/database/user.service.js';
 export default async (req, res) => {
   try {
-    const userId = parseInt(req.params.id);
-    const flag = await deleteUserById(userId);
+    const flag = await deleteUserById(req.params.id);
     if (!flag) {
       res.status(404).json(responseHelper('failure', 'User not found!'));
     } else {

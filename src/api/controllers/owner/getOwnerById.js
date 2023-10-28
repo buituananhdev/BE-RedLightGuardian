@@ -3,8 +3,7 @@ import { getOwnerById } from '../../../services/database/owner.service.js';
 
 export default async (req, res) => {
   try {
-    const ownerId = parseInt(req.params.id);
-    const owner = await getOwnerById(ownerId);
+    const owner = await getOwnerById(req.params.id);
     if (!owner) {
       res.status(404).json(responseHelper('failure', 'Owner not found'));
     } else {

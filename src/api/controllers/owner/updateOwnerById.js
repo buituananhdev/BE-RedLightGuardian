@@ -1,12 +1,9 @@
-import { Owner } from '../../../models/index.js';
 import { responseHelper } from '../../../utils/index.js';
 import { updateOwnerById } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
-    const ownerId = parseInt(req.params.id);
-    const owner = await updateOwnerById(ownerId, req.body);
-
-    if (!owner) {
+    const flag = await updateOwnerById(req.params.id, req.body);
+    if (!flag) {
       res.status(404).json(responseHelper('failure', 'Owner not found'));
     } else {
       res.status(200).json(responseHelper('success', 'Owner updated successfully'))

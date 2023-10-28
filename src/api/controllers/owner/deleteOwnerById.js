@@ -2,8 +2,7 @@ import { responseHelper } from '../../../utils/index.js';
 import { deleteOwnerById } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
-    const ownerId = parseInt(req.params.id);
-    const flag = await deleteOwnerById(ownerId);
+    const flag = await deleteOwnerById(req.params.id);
     if (!flag) {
       res.status(404).json(responseHelper('failure', 'Owner not found'));
     } else {

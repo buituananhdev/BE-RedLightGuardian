@@ -1,5 +1,5 @@
 import { responseHelper, pagingHelper } from '../../../utils/index.js';
-import { getAllUser } from '../../../services/database/user.services.js';
+import { getAllUser } from '../../../services/database/user.service.js';
 
 export default async (req, res) => {
   try {
