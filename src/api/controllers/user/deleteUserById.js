@@ -26,7 +26,7 @@ export default async (req, res) => {
  *          required: true
  *          description: ID of the user to delete
  *          schema:
- *            type: integer
+ *            type: string
  *      tags:
  *        - User
  *      responses:

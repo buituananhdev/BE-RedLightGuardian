@@ -26,7 +26,7 @@ export default async (req, res) => {
  *         required: true
  *         description: ID of the violation
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Violation details
