@@ -19,7 +19,7 @@ const getAllUser = async (req) => {
   }
 
   const users = await User.findAll({
-    attributes: ['username', 'email'],
+    attributes: ['id', 'username', 'email'],
     where: whereClause,
     limit: pageSize,
     offset: offset,
