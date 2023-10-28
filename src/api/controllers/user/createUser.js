@@ -1,5 +1,5 @@
 import { responseHelper } from "../../../utils/index.js";
-import { createUser } from "../../../services/database/user.services.js";
+import { createUser } from "../../../services/database/user.service.js";
 export default async (req, res) => {
   try {
     const user = await createUser(req.body);

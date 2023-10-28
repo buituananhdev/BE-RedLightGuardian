@@ -3,8 +3,7 @@ import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const violationId = parseInt(req.params.id);
-    const violation = await Violation.findByPk(violationId);
+    const violation = await Violation.findByPk(req.params.id);
     if (!violation) {
       res.status(404).json(responseHelper("failure",'Violation not found'));
     } else {

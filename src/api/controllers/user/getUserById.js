@@ -1,9 +1,8 @@
 import { responseHelper } from "../../../utils/index.js";
-import { getUserById } from "../../../services/database/user.services.js";
+import { getUserById } from "../../../services/database/user.service.js";
 export default async (req, res) => {
   try {
-    const userId = parseInt(req.params.id);
-    const user = await getUserById(userId);
+    const user = await getUserById(req.params.id);
     if (!user) {
       res.status(404).json(responseHelper("failure", "User not found!"));
     } else {
