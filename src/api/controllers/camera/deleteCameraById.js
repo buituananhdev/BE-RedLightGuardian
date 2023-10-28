@@ -13,7 +13,7 @@ export default async (req, res) => {
       res.json(responseHelper('success', 'Camera deleted successfully'));
     }
   } catch (error) {
-    res.status(500).json(errorHelper('00005', req, error.message));
+    res.status(500).json(responseHelper("failure", error.message));
   }
 };
 

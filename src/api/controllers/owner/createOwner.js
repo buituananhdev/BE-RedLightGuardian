@@ -9,7 +9,7 @@ export default async (req, res) => {
     const owner = await Owner.create(newOwnerData);
     res.status(201).json(responseHelper('success', 'Create user successfully', owner))
   } catch (error) {
-    res.status(500).json(errorHelper('00001', req, error.message));
+    res.status(500).json(responseHelper("failure", error.message));
   }
 };
 /**

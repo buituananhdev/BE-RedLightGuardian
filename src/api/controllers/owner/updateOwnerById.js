@@ -14,7 +14,7 @@ export default async (req, res) => {
       res.status(200).json(responseHelper('success', 'Owner updated successfully'))
     }
   } catch (error) {
-    res.status(500).json(errorHelper('00004', req, error.message));
+    res.status(500).json(responseHelper("failure", error.message));
   }
 };
 

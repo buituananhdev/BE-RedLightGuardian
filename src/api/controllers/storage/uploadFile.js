@@ -12,7 +12,7 @@ export default async (req, res, next) => {
       })
     );
   } catch (error) {
-    res.status(500).json(errorHelper("00009", req, error.message));
+    res.status(500).json(responseHelper("failure", error.message));
   }
 };
 
