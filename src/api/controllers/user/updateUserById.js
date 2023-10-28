@@ -1,18 +1,14 @@
 import User from '../../../models/user.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
-
+import { responseHelper } from '../../../utils/index.js';
+import { updateUserById } from '../../../services/database/user.services.js';
 export default async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
-    const updatedUserData = req.body;
-    const user = await User.findByPk(userId);
-
-    if (!user) {
-      res.status(404).json(errorHelper('00002', req, 'User not found'));
+    const flag = updateUserById(userId, req.body);
+    if (!flag) {
+      res.status(404).json(responseHelper("failure", 'User not found'));
     } else {
-      await user.update(updatedUserData);
       res.json(responseHelper('success', 'User updated successful', user))
-
     }
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));

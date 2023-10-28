@@ -1,12 +1,12 @@
 import { Camera } from '../../../models/index.js';
-import { errorHelper } from '../../../utils/index.js';
+import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
     const cameraId = parseInt(req.params.id);
     const camera = await Camera.findByPk(cameraId);
     if (!camera) {
-      res.status(404).json(errorHelper('00002', req, 'Camera not found'));
+      res.status(404).json(responseHelper("failure",'Camera not found'));
     } else {
       res.json(camera);
     }

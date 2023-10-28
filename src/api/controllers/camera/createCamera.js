@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Camera } from '../../../models/index.js';
-import { responseHelper, errorHelper } from '../../../utils/index.js';
+import { responseHelper } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
@@ -9,7 +9,7 @@ export default async (req, res) => {
     const camera = await Camera.create(newCameraData);
     res.status(201).json(responseHelper('success', '', camera));
   } catch (error) {
-    res.status(500).json(errorHelper('500', req, error.message));
+    res.status(500).json(responseHelper('failure', error.message));
   }
 };
 

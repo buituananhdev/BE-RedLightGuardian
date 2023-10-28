@@ -1,23 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
-import { User } from '../../../models/index.js';
-import { errorHelper, responseHelper } from '../../../utils/index.js';
-
+import { responseHelper } from "../../../utils/index.js";
+import { createUser } from "../../../services/database/user.services.js";
 export default async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    const id = uuidv4();
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUserData = {
-      id: id,
-      username: username,
-      email: email,
-      password: hashedPassword,
-    };
-
-    const user = await User.create(newUserData);
-    res.status(201).json(responseHelper('success', '', user))
+    const user = await createUser(req.body);
+    res.status(201).json(responseHelper("success", "", user));
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));
   }

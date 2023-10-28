@@ -1,5 +1,5 @@
 import { User } from "../../../models/index.js";
-import { responseHelper, errorHelper, signRefreshToken, signAccessToken } from "../../../utils/index.js";
+import { responseHelper, signRefreshToken, signAccessToken } from "../../../utils/index.js";
 import bcrypt from "bcryptjs";
 
 export default async (req, res) => {
@@ -10,7 +10,7 @@ export default async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json(errorHelper("00002", req, "Invalid username or password"));
+      return res.status(404).json(responseHelper( "Invalid username or password"));
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -19,11 +19,11 @@ export default async (req, res) => {
       const refreshToken = signRefreshToken(user.id);
       return res.status(200).json(responseHelper('success', '', { access_token: accessToken, refresh_token: refreshToken, expires_in: 24 * 60 * 60, created_at: Date.now() }));
     } else {
-      return res.status(404).json(errorHelper("00002", req, "Invalid username or password"));
+      return res.status(404).json(responseHelper("failure", "Invalid username or password"));
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json(errorHelper("00090", req, error.message));
+    return res.status(500).json(responseHelper("failure", error.message));
   }
 };
 

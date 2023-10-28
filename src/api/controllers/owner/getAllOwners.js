@@ -1,22 +1,11 @@
-import { Owner } from '../../../models/index.js';
-import { errorHelper, responseHelper, pagingHelper } from '../../../utils/index.js';
-
+import { responseHelper } from '../../../utils/index.js';
+import { getAllOwner } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 10;
-
-    const offset = (page - 1) * pageSize;
-    const owners = await Owner.findAll({
-      limit: pageSize,
-      offset: offset,
-    });
-
-    const totalOwners = await Owner.count();
-    const meta = pagingHelper(page, pageSize, totalOwners);
-    res.status(200).json(responseHelper('success', 'Get all owners successful!', owners, meta));
+    const result = await getAllOwner(req);
+    res.status(200).json(responseHelper('success', 'Get owners successful!', result.owners, result.meta));
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper('failure', error.message));
   }
 };
 
@@ -24,11 +13,39 @@ export default async (req, res) => {
  * @swagger
  * /owners:
  *   get:
- *     summary: Get all owners
+ *     summary: Get owners based on search criteria
  *     tags: [Owner]
+ *     parameters:
+ *       - in: query
+ *         name: key_word
+ *         schema:
+ *           type: string
+ *         description: Keyword for search
+ *       - in: query
+ *         name: citizen_identification
+ *         schema:
+ *           type: string
+ *         description: Citizen identification number to search for
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         description: Owner's email address to search for
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: The page number for pagination
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: The number of items per page for pagination
  *     responses:
  *       200:
- *         description: List of owners.
+ *         description: List of owners matching the search criteria
  *         content:
  *           application/json:
  *             schema:
