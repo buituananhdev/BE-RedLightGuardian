@@ -1,5 +1,6 @@
 import { User } from "../../../models/index.js";
 import { responseHelper, signRefreshToken, signAccessToken } from "../../../utils/index.js";
+import { createToken } from "../../../services/database/token.service.js";
 import bcrypt from "bcryptjs";
 
 export default async (req, res) => {
@@ -17,6 +18,8 @@ export default async (req, res) => {
     if (passwordMatch) {
       const accessToken = signAccessToken(user.id);
       const refreshToken = signRefreshToken(user.id);
+      const tokenEntity = { access_token: accessToken, refresh_token: refreshToken, userId: user.id, expiresIn: 24 * 60 * 60, createdAt: Date.now() };
+      await createToken(tokenEntity);
       return res.status(200).json(responseHelper('success', '', { access_token: accessToken, refresh_token: refreshToken, expires_in: 24 * 60 * 60, created_at: Date.now() }));
     } else {
       return res.status(404).json(responseHelper("failure", "Invalid username or password"));

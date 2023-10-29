@@ -31,3 +31,4 @@ export function getUserIdFromToken(req) {
   const verified = verify(token, jwtSecretKey);
   return verified._id;
 }
+

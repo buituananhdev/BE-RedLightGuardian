@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { auth } from "../middlewares/index.js";
 import { getAllUsers, createUser, getUserById, deleteUserById, updateUserById } from "../controllers/user/index.js";
 
 const router = Router();
