@@ -22,16 +22,14 @@ export default {
       },
     ],
   },
-  securityDefinitions: {
-    bearerAuth: {
-      type: "apiKey",
-      name: "x-auth-token",
-      scheme: "bearer",
-      in: "header",
-    },
-  },
-  security: [{ bearerAuth: [] }],
   components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
     schemas: {
       User: {
         type: "object",
@@ -95,6 +93,7 @@ export default {
       },
     },
   },
+  security: [{ bearerAuth: [] }],
   tags: [
     {
       name: "User",
