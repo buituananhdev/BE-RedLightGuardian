@@ -61,4 +61,9 @@ const deleteUserById = async (userId) => {
   return false;
 };
 
-export { getAllUser, createUser, getUserById, updateUserById, deleteUserById };
+const isUserExists = async (userId) => {
+  const exists = await User.findByPk(userId);
+  return exists !== null;
+}
+
+export { getAllUser, createUser, getUserById, updateUserById, deleteUserById, isUserExists };

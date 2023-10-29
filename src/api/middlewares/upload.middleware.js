@@ -5,8 +5,7 @@ import cloudinary from '../../config/cloudinary.config.js';
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'uploads',
-    format: async (req, file) => 'png',
+    folder: Date.now().toString(),
     public_id: (req, file) => file.originalname
   }
 });

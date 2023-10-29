@@ -2,7 +2,7 @@ export default {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "PBL4 API",
+      title: "PBL4 Red light Guardian API",
       version: "1.0.0",
       description: "The API documentation of PBL4",
       license: {
@@ -23,6 +23,13 @@ export default {
     ],
   },
   components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
     schemas: {
       User: {
         type: "object",
@@ -86,6 +93,11 @@ export default {
       },
     },
   },
+  security: [
+    {
+      BearerAuth: [],
+    },
+  ],
   tags: [
     {
       name: "User",
