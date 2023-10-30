@@ -1,7 +1,9 @@
 import Violation from "../../models/violation.js";
 import { pagingHelper } from "../../utils/index.js";
+import { getOwnerByVehicle } from "./owner.service.js";
+import mailService from '../../config/smtp.config.js';
 import { Op } from "sequelize";
-import { v4 as uuidv4 } from "uuid";
+import { stringify, v4 as uuidv4 } from "uuid";
 
 const getAllViolation = async (req) => {
   const page = parseInt(req.query.page) || 1;
@@ -39,11 +41,22 @@ const getAllViolation = async (req) => {
   return { violations: violations, meta: meta };
 };
 
-const createViolation = async (violationData) => {
-  violationData.id = uuidv4();
+const createViolation = async (vehicleID, cameraID, imageUrl) => {
+  const deadlineTimestamp = Date.now() + 15 * 24 * 60 * 60 * 1000;
+  const id = uuidv4();
+  const type = "Run a red light";
+  const status = "unpaid fine";
+  const violationData = { id, type, deadline: deadlineTimestamp, status, vehicleID, time: Date.now(), cameraID, imageUrl };
   const newViolation = await Violation.create(violationData);
+  const owner = await getOwnerByVehicle(vehicleID);
+  const emailTo = 'bta123aaa@gmail.com';
+  mailService.sendMail({
+    emailTo,
+    emailContent: JSON.stringify(owner)
+  })
   return newViolation;
 };
+
 
 const getViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
@@ -67,6 +80,12 @@ const deleteViolationById = async (violationId) => {
   }
   return false;
 };
+
+const formatEmail = (owner) => {
+  const tmp = JSON.stringify(owner);
+  console.log(tmp);
+  return tmp;
+}
 
 export {
   getAllViolation,

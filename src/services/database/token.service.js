@@ -1,5 +1,4 @@
 import Token from "../../models/token.js";
-import { v4 as uuidv4 } from "uuid";
 
 const createToken = async (tokenData) => {
   const newToken = await Token.create(tokenData);

@@ -1,11 +1,18 @@
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
-import { Violation } from '../../../models/index.js';
 import { responseHelper } from '../../../utils/index.js';
 import { createViolation } from '../../../services/database/violation.service.js';
+import { getVehicleIdBylicensePlate } from '../../../services/database/vehicle.service.js';
 export default async (req, res) => {
   try {
-    const violation = await createViolation(req.body);
+    const { licensePlate, cameraID } = req.body;
+    if (!req.file) {
+      res.status(400).json(responseHelper("failure", "No file uploaded!"));
+      return;
+    }
+    const vehicleId = await getVehicleIdBylicensePlate(licensePlate);
+    if(!vehicleId) {
+      res.status(400).json(responseHelper("failure", "Vehicle not found!"));
+    }
+    const violation = await createViolation(vehicleId, cameraID, req.file.path);
     res.status(201).json(responseHelper('success', '', violation))
   } catch (error) {
     res.status(500).json(responseHelper("failure", error.message));
