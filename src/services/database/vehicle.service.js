@@ -53,13 +53,18 @@ const getVehicleById = async (vehicleId) => {
   return vehicle;
 };
 
+const getVehicleIdBylicensePlate = async (licensePlate) => {
+  const vehicle = await Vehicle.findOne({ where: { licensePlate: licensePlate } });
+  return vehicle.id;
+};
+
 const updateVehicleById = async (vehicleId, updatedData) => {
   const vehicle = await Vehicle.findByPk(vehicleId);
-    if (vehicle) {
-      await vehicle.update(updatedData);
-      return true;
-    }
-    return false;
+  if (vehicle) {
+    await vehicle.update(updatedData);
+    return true;
+  }
+  return false;
 };
 
 const deleteVehicleById = async (vehicleId) => {
@@ -75,6 +80,7 @@ export {
   getAllVehicle,
   createVehicle,
   getVehicleById,
+  getVehicleIdBylicensePlate,
   updateVehicleById,
   deleteVehicleById,
 };

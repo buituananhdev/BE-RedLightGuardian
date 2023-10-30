@@ -1,4 +1,6 @@
 import Owner from "../../models/owner.js";
+import Sequelize from "sequelize";
+import Vehicle from "../../models/vehicle.js";
 import { pagingHelper } from "../../utils/index.js";
 import { Op } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
@@ -56,6 +58,16 @@ const getOwnerById = async (ownerId) => {
   return owner;
 };
 
+const getOwnerByVehicle = async (vehicleId) => {
+  const owner = Vehicle.findOne({
+    where: { id: vehicleId },
+    include: [
+      {  model: Owner, where: { id: Sequelize.col("vehicle.ownerID") }},
+    ],
+  });
+  return owner;
+};
+
 const updateOwnerById = async (ownerId, updatedData) => {
   const owner = await Owner.findByPk(ownerId);
   if (owner) {
@@ -78,6 +90,7 @@ export {
   getAllOwner,
   createOwner,
   getOwnerById,
+  getOwnerByVehicle,
   updateOwnerById,
   deleteOwnerById,
 };
