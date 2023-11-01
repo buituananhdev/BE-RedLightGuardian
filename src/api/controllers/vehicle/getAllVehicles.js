@@ -4,9 +4,9 @@ import { getAllVehicle } from '../../../services/database/vehicle.service.js';
 export default async (req, res) => {
   try {
     const result = await getAllVehicle(req);
-    res.json(responseHelper('success', 'Get vehicles successful!', result.vehicles, result.meta));
+    res.json(responseHelper(1, 'Get vehicles successful!', result.vehicles, result.meta));
   } catch (error) {
-    res.status(500).json(responseHelper('failure', error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

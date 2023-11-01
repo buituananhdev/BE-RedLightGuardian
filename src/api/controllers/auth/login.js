@@ -20,13 +20,13 @@ export default async (req, res) => {
       const refreshToken = signRefreshToken(user.id);
       const tokenEntity = { access_token: accessToken, refresh_token: refreshToken, userId: user.id, expiresIn: 24 * 60 * 60, createdAt: Date.now() };
       await createToken(tokenEntity);
-      return res.status(200).json(responseHelper('success', '', { access_token: accessToken, refresh_token: refreshToken, expires_in: 24 * 60 * 60, created_at: Date.now() }));
+      return res.status(200).json(responseHelper(1, '', { access_token: accessToken, refresh_token: refreshToken, expires_in: 24 * 60 * 60, created_at: Date.now() }));
     } else {
-      return res.status(404).json(responseHelper("failure", "Invalid username or password"));
+      return res.status(404).json(responseHelper(2, "Invalid username or password"));
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json(responseHelper("failure", error.message));
+    return res.status(500).json(responseHelper(2, error.message));
   }
 };
 

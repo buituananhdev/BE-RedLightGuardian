@@ -6,12 +6,12 @@ export default async (req, res) => {
     const cameraId = parseInt(req.params.id);
     const camera = await Camera.findByPk(cameraId);
     if (!camera) {
-      res.status(404).json(responseHelper("failure",'Camera not found'));
+      res.status(404).json(responseHelper(2,'Camera not found'));
     } else {
       res.json(camera);
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

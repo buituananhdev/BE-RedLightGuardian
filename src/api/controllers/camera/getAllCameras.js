@@ -4,7 +4,7 @@ import { responseHelper } from '../../../utils/index.js';
 export default async (req, res) => {
   try {
     const cameras = await Camera.findAll();
-    res.json(responseHelper('success', '', cameras));
+    res.json(responseHelper(1, '', cameras));
   } catch (error) {
     res.status(500).json(error);
   }

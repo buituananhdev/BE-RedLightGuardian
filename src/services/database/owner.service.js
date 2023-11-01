@@ -48,6 +48,9 @@ const getAllOwner = async (req) => {
 };
 
 const createOwner = async (ownerData) => {
+  if(await isCitizenIdentificationExists()) {
+    return null;
+  }
   ownerData.id = uuidv4();
   const newOwner = await Owner.create(ownerData);
   return newOwner;
@@ -85,6 +88,15 @@ const deleteOwnerById = async (ownerId) => {
   }
   return false;
 };
+
+const isCitizenIdentificationExists = async (citizen_identification) => {
+  const exists = await Owner.findOne({
+    where: {
+      citizen_identification: citizen_identification
+    },
+  });
+  return exists !== null;
+}
 
 export {
   getAllOwner,

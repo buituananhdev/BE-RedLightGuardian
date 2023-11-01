@@ -7,9 +7,9 @@ export default async (req, res) => {
     const newCameraData = req.body;
     newCameraData.id = uuidv4();
     const camera = await Camera.create(newCameraData);
-    res.status(201).json(responseHelper('success', '', camera));
+    res.status(201).json(responseHelper(1, '', camera));
   } catch (error) {
-    res.status(500).json(responseHelper('failure', error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

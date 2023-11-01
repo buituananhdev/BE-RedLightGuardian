@@ -3,16 +3,16 @@ import { responseHelper } from "../../../utils/index.js";
 export default async (req, res) => {
   try {
     if (!req.file) {
-      res.status(400).json(responseHelper("failure", "No file uploaded!"));
+      res.status(400).json(responseHelper(2, "No file uploaded!"));
       return;
     }
     res.json(
-      responseHelper("success", "Upload file successful!", {
+      responseHelper("1", "Upload file successful!", {
         url: req.file.path,
       })
     );
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

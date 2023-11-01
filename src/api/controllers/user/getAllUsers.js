@@ -4,9 +4,9 @@ import { getAllUser } from '../../../services/database/user.service.js';
 export default async (req, res) => {
   try {
     const result = await getAllUser(req);
-    res.json(responseHelper('success', 'Get users successful!', result.users, result.meta));
+    res.json(responseHelper(1, 'Get users successful!', result.users, result.meta));
   } catch (error) {
-    res.status(500).json(responseHelper('failure', error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

@@ -4,12 +4,12 @@ export default async (req, res) => {
   try {
     const flag = await updateOwnerById(req.params.id, req.body);
     if (!flag) {
-      res.status(404).json(responseHelper('failure', 'Owner not found'));
+      res.status(404).json(responseHelper(2, 'Owner not found'));
     } else {
-      res.status(200).json(responseHelper('success', 'Owner updated successfully'))
+      res.status(200).json(responseHelper(1, 'Owner updated successfully'))
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 
