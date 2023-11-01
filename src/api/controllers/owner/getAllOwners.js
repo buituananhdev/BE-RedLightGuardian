@@ -3,9 +3,9 @@ import { getAllOwner } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
     const result = await getAllOwner(req);
-    res.status(200).json(responseHelper('success', 'Get owners successful!', result.owners, result.meta));
+    res.status(200).json(responseHelper(1, 'Get owners successful!', result.owners, result.meta));
   } catch (error) {
-    res.status(500).json(responseHelper('failure', error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

@@ -8,7 +8,7 @@ const { verify } = jwt;
 export default async (req, res, next) => {
   const token = req.headers["authorization"];
   if (!token || !token.includes("Bearer ")) {
-    return res.status(401).json(responseHelper("failure", 'Invalid token!'));
+    return res.status(401).json(responseHelper(2, 'Invalid token!'));
   }
 
   const tokenWithoutBearer = token.replace("Bearer ", "");
@@ -17,16 +17,16 @@ export default async (req, res, next) => {
     req.user = verify(tokenWithoutBearer, jwtSecretKey);
     const userExists = await isUserExists(req.user._id);
     if (!userExists) {
-      return res.status(400).json(responseHelper("failure", 'User not found!'));
+      return res.status(400).json(responseHelper(2, 'User not found!'));
     }
 
     const tokenExists = await isTokenExists (req.user._id, tokenWithoutBearer);
     if (!tokenExists) {
-      return res.status(401).json(responseHelper("failure", 'Invalid UserID!'));
+      return res.status(401).json(responseHelper(2, 'Invalid UserID!'));
     }
 
     next();
   } catch (err) {
-    return res.status(401).json(responseHelper("failure", err.message));
+    return res.status(401).json(responseHelper(2, err.message));
   }
 };

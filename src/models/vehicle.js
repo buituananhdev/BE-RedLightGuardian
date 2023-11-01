@@ -13,7 +13,7 @@ const Vehicle = sequelize.define("vehicle", {
   },
   licensePlate: {
     type: Sequelize.STRING,
-    allowNull: false,
+    unique: true,
   },
   ownerID: Sequelize.STRING,
   vehicleType: Sequelize.ENUM("car", "motorcycle"),

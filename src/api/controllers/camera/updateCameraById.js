@@ -8,13 +8,13 @@ export default async (req, res) => {
     const camera = await Vehicle.findByPk(cameraId);
 
     if (!camera) {
-      res.status(404).json(responseHelper("failure",'Vehicle not found'));
+      res.status(404).json(responseHelper(2,'Vehicle not found'));
     } else {
       await camera.update(updatedVehicleData);
       res.json(camera);
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

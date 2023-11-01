@@ -5,12 +5,12 @@ export default async (req, res) => {
   try {
     const flag = await deleteVehicleById(req.params.id);
     if (!flag) {
-      res.status(404).json(responseHelper("failure", "Vehicle not found"));
+      res.status(404).json(responseHelper(2, "Vehicle not found"));
     } else {
-      res.json(responseHelper("success", "Delete vehicle successful!"));
+      res.json(responseHelper("1", "Delete vehicle successful!"));
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

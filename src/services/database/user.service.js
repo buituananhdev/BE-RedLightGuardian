@@ -31,6 +31,9 @@ const getAllUser = async (req) => {
 };
 
 const createUser = async (userData) => {
+  if(await isUsernameExists(userData.username)) {
+    return null;
+  }
   userData.id = uuidv4();
   const hashPassword = await bcrypt.hash(userData.password, 10);
   userData.password = hashPassword;
@@ -63,6 +66,15 @@ const deleteUserById = async (userId) => {
 
 const isUserExists = async (userId) => {
   const exists = await User.findByPk(userId);
+  return exists !== null;
+}
+
+const isUsernameExists = async (userName) => {
+  const exists = await User.findOne({
+    where: {
+      username: userName
+    },
+  });
   return exists !== null;
 }
 

@@ -43,6 +43,9 @@ const getAllVehicle = async (req) => {
 };
 
 const createVehicle = async (vehicleData) => {
+  if(await isListenPlateExists(vehicleData.licensePlate)) {
+    return null;
+  }
   vehicleData.id = uuidv4();
   const newVehicle = await Vehicle.create(vehicleData);
   return newVehicle;
@@ -75,6 +78,15 @@ const deleteVehicleById = async (vehicleId) => {
   }
   return false;
 };
+
+const isListenPlateExists = async (licensePlate) => {
+  const exists = await Vehicle.findOne({
+    where: {
+      licensePlate: licensePlate
+    },
+  });
+  return exists !== null;
+}
 
 export {
   getAllVehicle,

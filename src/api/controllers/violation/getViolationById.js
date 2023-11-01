@@ -5,12 +5,12 @@ export default async (req, res) => {
   try {
     const violation = await getViolationById(req.params.id);
     if (!violation) {
-      res.status(404).json(responseHelper("failure",'Violation not found'));
+      res.status(404).json(responseHelper(2,'Violation not found'));
     } else {
-      res.json(responseHelper('success', '', violation))
+      res.json(responseHelper(1, '', violation))
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 /**

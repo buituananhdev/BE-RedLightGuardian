@@ -6,13 +6,13 @@ export default async (req, res) => {
     const flag = await updateViolationById(req.params.id, req.body);
 
     if (!flag) {
-      res.status(404).json(responseHelper("failure",'Violation not found'));
+      res.status(404).json(responseHelper(2,'Violation not found'));
     } else {
-      res.json(responseHelper('success', 'Violation updated successful'))
+      res.json(responseHelper(1, 'Violation updated successful'))
 
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

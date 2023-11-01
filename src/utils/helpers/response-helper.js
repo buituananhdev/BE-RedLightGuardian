@@ -1,6 +1,6 @@
 export default (status, message, data, meta) => {
   const response = {
-    'status': status
+    'status': status == 1 ? 'success' : 'failure'
   };
 
   if (data) {

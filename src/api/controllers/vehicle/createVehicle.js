@@ -3,9 +3,12 @@ import { createVehicle } from '../../../services/database/vehicle.service.js';
 export default async (req, res) => {
   try {
     const vehicle = await createVehicle(req.body);
-    res.status(201).json(responseHelper('success', '', vehicle))
+    if(!vehicle) {
+      res.status(400).json(responseHelper(2, 'Listen plate already exists!', vehicle))
+    }
+    res.status(201).json(responseHelper(1, '', vehicle))
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

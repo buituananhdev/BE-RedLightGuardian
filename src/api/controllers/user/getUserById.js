@@ -4,12 +4,12 @@ export default async (req, res) => {
   try {
     const user = await getUserById(req.params.id);
     if (!user) {
-      res.status(404).json(responseHelper("failure", "User not found!"));
+      res.status(404).json(responseHelper(2, "User not found!"));
     } else {
-      res.json(responseHelper("success", "", user));
+      res.json(responseHelper("1", "", user));
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

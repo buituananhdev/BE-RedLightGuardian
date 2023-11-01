@@ -4,9 +4,12 @@ import { createOwner } from '../../../services/database/owner.service.js';
 export default async (req, res) => {
   try {
     const owner = await createOwner(req.body);
-    res.status(201).json(responseHelper('success', 'Create user successfully', owner))
+    if(!owner) {
+    res.status(201).json(responseHelper(2, 'Citizen identification already exists!'));
+    }
+    res.status(201).json(responseHelper(1, 'Create user successfully', owner));
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

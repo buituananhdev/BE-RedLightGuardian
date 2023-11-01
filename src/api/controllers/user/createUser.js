@@ -3,9 +3,14 @@ import { createUser } from "../../../services/database/user.service.js";
 export default async (req, res) => {
   try {
     const user = await createUser(req.body);
-    res.status(201).json(responseHelper("success", "", user));
+    if(!user) {
+      res.status(400).json(responseHelper(2, "Username already exists!"));
+    }
+    else {
+      res.status(201).json(responseHelper("1", "", user));
+    }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

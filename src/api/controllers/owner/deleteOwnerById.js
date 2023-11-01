@@ -4,12 +4,12 @@ export default async (req, res) => {
   try {
     const flag = await deleteOwnerById(req.params.id);
     if (!flag) {
-      res.status(404).json(responseHelper('failure', 'Owner not found'));
+      res.status(404).json(responseHelper(2, 'Owner not found'));
     } else {
-      res.json(responseHelper('success', 'Owner deleted successfully'))
+      res.json(responseHelper(1, 'Owner deleted successfully'))
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

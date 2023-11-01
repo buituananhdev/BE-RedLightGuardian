@@ -5,12 +5,12 @@ export default async (req, res) => {
   try {
     const owner = await getOwnerById(req.params.id);
     if (!owner) {
-      res.status(404).json(responseHelper('failure', 'Owner not found'));
+      res.status(404).json(responseHelper(2, 'Owner not found'));
     } else {
-      res.status(200).json(responseHelper('success', '', owner))
+      res.status(200).json(responseHelper(1, '', owner))
     }
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 

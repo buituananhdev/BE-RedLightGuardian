@@ -5,17 +5,17 @@ export default async (req, res) => {
   try {
     const { licensePlate, cameraID } = req.body;
     if (!req.file) {
-      res.status(400).json(responseHelper("failure", "No file uploaded!"));
+      res.status(400).json(responseHelper(2, "No file uploaded!"));
       return;
     }
     const vehicleId = await getVehicleIdBylicensePlate(licensePlate);
     if(!vehicleId) {
-      res.status(400).json(responseHelper("failure", "Vehicle not found!"));
+      res.status(400).json(responseHelper(2, "Vehicle not found!"));
     }
     const violation = await createViolation(vehicleId, cameraID, req.file.path);
-    res.status(201).json(responseHelper('success', '', violation))
+    res.status(201).json(responseHelper(1, '', violation))
   } catch (error) {
-    res.status(500).json(responseHelper("failure", error.message));
+    res.status(500).json(responseHelper(2, error.message));
   }
 };
 
