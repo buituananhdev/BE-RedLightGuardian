@@ -20,25 +20,10 @@ export default async (req, res) => {
  *       - Vehicle
  *     parameters:
  *       - in: query
- *         name: vehicleName
+ *         name: key_word
  *         schema:
  *           type: string
- *         description: Vehicle name to search for
- *       - in: query
- *         name: licensePlate
- *         schema:
- *           type: string
- *         description: License plate number to search for
- *       - in: query
- *         name: brand
- *         schema:
- *           type: string
- *         description: Vehicle brand to search for
- *       - in: query
- *         name: color
- *         schema:
- *           type: string
- *         description: Vehicle color to search for
+ *         description: Keyword for search
  *       - in: query
  *         name: ownerID
  *         schema:

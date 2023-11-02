@@ -9,13 +9,19 @@ import cameras from './cameras.js';
 import owners from './owners.js';
 import auth from './auth.js';
 import violations from './violations.js'
-
 const router = Router();
-
+swaggerConfig.components = {
+  securitySchemes: {
+    bearerAuth: {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    },
+  },
+};
 const specDoc = swaggerJsdoc(swaggerConfig);
-
 router.use(specs, serve);
-router.get(specs, setup(specDoc, { explorer: true }));
+router.get(specs, setup(specDoc));
 
 router.use('/auth', auth);
 router.use('/storages', storages);

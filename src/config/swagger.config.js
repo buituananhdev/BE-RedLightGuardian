@@ -22,13 +22,13 @@ export default {
       },
     ],
   },
-  components: {
+  security: [{ basicAuth: [] }],
+  component: {
     securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-      },
+      basicAuth: {
+        type:   'http',
+        scheme: 'basic'
+      }
     },
     schemas: {
       User: {
@@ -93,17 +93,6 @@ export default {
       },
     },
   },
-  security: [{ bearerAuth: [] }],
-  tags: [
-    {
-      name: "User",
-      description: "API for users",
-    },
-    {
-      name: "Vehicle",
-      description: "API for vehicles",
-    },
-  ],
   apis: [
     "src/models/*.js",
     "src/utils/helpers/*.js",

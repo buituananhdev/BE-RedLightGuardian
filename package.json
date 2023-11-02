@@ -1,7 +1,7 @@
 {
-  "name": "sform",
+  "name": "PBL4",
   "version": "1.0.0",
-  "description": "You can use this template when you're starting a new project. It contains general concepts, you can customize it according to your needs.",
+  "description": "",
   "main": "app.js",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -26,8 +26,9 @@
     "sequelize": "^6.33.0",
     "sequelize-cli": "^6.6.1",
     "swagger-jsdoc": "^6.0.8",
-    "swagger-ui-express": "^4.1.6",
-    "uuid": "^9.0.1"
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -36,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahricanyesil/nodejs-starter-template.git"
+    "url": "git+https://github.com/buituananhdev/BE-RedLightGuardian.git"
   },
   "keywords": [
     "node.js",
@@ -44,11 +45,8 @@
     "starter",
     "template"
   ],
-  "author": "Bahrican Yesil",
+  "author": "Bui Tuan Anh",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bahricanyesil/nodejs-starter-template/issues"
-  },
-  "homepage": "https://github.com/bahricanyesil/nodejs-starter-template#readme",
+  "homepage": "",
   "type": "module"
 }
