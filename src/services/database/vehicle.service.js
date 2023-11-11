@@ -58,6 +58,9 @@ const getVehicleById = async (vehicleId) => {
 
 const getVehicleIdBylicensePlate = async (licensePlate) => {
   const vehicle = await Vehicle.findOne({ where: { licensePlate: licensePlate } });
+  if(!vehicle) {
+    return null;
+  }
   return vehicle.id;
 };
 

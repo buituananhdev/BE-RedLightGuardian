@@ -1,6 +1,7 @@
 import Violation from "../../models/violation.js";
 import { pagingHelper } from "../../utils/index.js";
 import { getOwnerByVehicle } from "./owner.service.js";
+import { getVehicleIdBylicensePlate } from "./vehicle.service.js";
 import mailService from '../../config/smtp.config.js';
 import { Op } from "sequelize";
 import { stringify, v4 as uuidv4 } from "uuid";
@@ -57,6 +58,18 @@ const createViolation = async (vehicleID, cameraID, imageUrl) => {
   return newViolation;
 };
 
+const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
+  const violations = [];
+  for (const licensePlate of licensePlates) {
+    const vehicleID = await getVehicleIdBylicensePlate(licensePlate); // Assume you have a function to get vehicle ID by license plate
+    if(vehicleID) {
+      const violation = await createViolation(vehicleID, cameraID, imageUrl);
+      violations.push(violation);
+    }
+  }
+  return violations;
+};
+
 
 const getViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
@@ -93,4 +106,5 @@ export {
   getViolationById,
   updateViolationById,
   deleteViolationById,
+  createMultipleViolations
 };
