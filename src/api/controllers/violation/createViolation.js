@@ -1,23 +1,30 @@
 import { responseHelper } from '../../../utils/index.js';
-import { createViolation } from '../../../services/database/violation.service.js';
-import { getVehicleIdBylicensePlate } from '../../../services/database/vehicle.service.js';
+import { createMultipleViolations } from '../../../services/database/violation.service.js';
+
 export default async (req, res) => {
   try {
-    const { licensePlate, cameraID } = req.body;
+    const { licensePlates, cameraID } = req.body;
+    console.log(licensePlates);
+    console.log("image", req.file);
+
     if (!req.file) {
       res.status(400).json(responseHelper(2, "No file uploaded!"));
       return;
     }
-    const vehicleId = await getVehicleIdBylicensePlate(licensePlate);
-    if(!vehicleId) {
-      res.status(400).json(responseHelper(2, "Vehicle not found!"));
+
+    const violations = await createMultipleViolations(licensePlates, cameraID, req.file.path);
+
+    if (violations.length === 0) {
+      res.status(400).json(responseHelper(2, "No violations created!"));
+      return;
     }
-    const violation = await createViolation(vehicleId, cameraID, req.file.path);
-    res.status(201).json(responseHelper(1, '', violation))
+
+    res.status(201).json(responseHelper(1, '', violations));
   } catch (error) {
     res.status(500).json(responseHelper(2, error.message));
   }
 };
+
 
 /**
  * @swagger
