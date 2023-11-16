@@ -19,11 +19,11 @@ services:
   web:
     depends_on:
       - mysql
-    build: ./src
+    build: ./BE-RedLightGuardian
     ports: 
       - "3011:3011"
     volumes:
-    - ./src/:/app/src
+      - ./BE-RedLightGuardian/src:/app/src
     restart: unless-stopped
     container_name: nodejs
     stdin_open: true
