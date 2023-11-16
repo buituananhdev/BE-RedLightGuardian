@@ -2,7 +2,6 @@ version: '3.7'
 
 services:
   mysql:
-    platform: linux/x86_64
     image: mysql:5.7
     container_name: pbl4-server
     restart: unless-stopped
@@ -20,11 +19,11 @@ services:
   web:
     depends_on:
       - mysql
-    build: ./myapp
+    build: ./src
     ports: 
       - "3011:3011"
     volumes:
-    - ./myapp/:/app
+    - ./src/:/app/src
     restart: unless-stopped
     container_name: nodejs
     stdin_open: true
