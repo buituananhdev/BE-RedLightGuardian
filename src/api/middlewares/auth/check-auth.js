@@ -20,10 +20,10 @@ export default async (req, res, next) => {
       return res.status(400).json(responseHelper(2, 'User not found!'));
     }
 
-    const tokenExists = await isTokenExists (req.user._id, tokenWithoutBearer);
-    if (!tokenExists) {
-      return res.status(401).json(responseHelper(2, 'Invalid UserID!'));
-    }
+    // const tokenExists = await isTokenExists (req.user._id, tokenWithoutBearer);
+    // if (!tokenExists) {
+    //   return res.status(401).json(responseHelper(2, 'Invalid UserID!'));
+    // }
 
     next();
   } catch (err) {

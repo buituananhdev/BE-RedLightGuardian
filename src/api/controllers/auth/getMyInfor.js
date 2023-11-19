@@ -3,8 +3,7 @@ import { responseHelper, getUserIdFromToken } from '../../../utils/index.js';
 
 export default async (req, res) => {
   try {
-    const userId = getUserIdFromToken(req);
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(req.user._id);
     if (!user) {
       res.status(404).json(responseHelper(2,'User not found'));
     } else {

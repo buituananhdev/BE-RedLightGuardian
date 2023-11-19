@@ -1,8 +1,8 @@
-import Vehicle from "../../models/vehicle.js";
+import { Owner, Vehicle } from "../../models/index.js";
 import { pagingHelper } from "../../utils/index.js";
 import { Op } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
-
+import { getOwnerByCitizenIdentification } from "./owner.service.js";
 const getAllVehicle = async (req) => {
   const page = parseInt(req.query.page) || 1;
   const pageSize = parseInt(req.query.pageSize) || 10;
@@ -36,18 +36,46 @@ const getAllVehicle = async (req) => {
     limit: pageSize,
     offset: offset,
   });
-
   const totalVehicles = await Vehicle.count({ where: whereClause });
+  const mappedVehicles = await Promise.all(
+    vehicles.map(async (vehicle) => {
+      const owner = await Owner.findByPk(vehicle.ownerID);
+      return {
+        id: vehicle.id,
+        vehicleName: vehicle.vehicleName,
+        licensePlate: vehicle.licensePlate,
+        vehicleType: vehicle.vehicleType,
+        color: vehicle.color,
+        brand: vehicle.brand,
+        imageUrl: vehicle.imageUrl,
+        owner: owner,
+      };
+    })
+  );
+
   const meta = pagingHelper(page, pageSize, totalVehicles);
-  return { vehicles: vehicles, meta: meta };
+  return { vehicles: mappedVehicles, meta: meta };
 };
 
 const createVehicle = async (vehicleData) => {
   if(await isListenPlateExists(vehicleData.licensePlate)) {
     return null;
   }
-  vehicleData.id = uuidv4();
-  const newVehicle = await Vehicle.create(vehicleData);
+  const owner = await getOwnerByCitizenIdentification(vehicleData.citizenIdentification)
+  const vehicle = {
+    id: uuidv4(),
+    vehicleName: vehicleData.vehicleName,
+    licensePlate: vehicleData.licensePlate,
+    ownerID: owner.id,
+    vehicleType: vehicleData.vehicleType,
+    engineCapacity: vehicleData.engineCapacity,
+    color: vehicleData.color,
+    frameNumber: vehicleData.frameNumber,
+    engineNumber: vehicleData.engineNumber,
+    brand: vehicleData.brand,
+    imageUrl: vehicleData.imageUrl
+  }
+  const newVehicle = await Vehicle.create(vehicle);
   return newVehicle;
 };
 

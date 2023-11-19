@@ -1,38 +1,20 @@
-version: '3.7'
+# docker-compose.yml
+version: '3'
 
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: pbl4-server
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456Aa
-      MYSQL_DATABASE: pbl4-db
+  express:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: express-container
+    restart: always
     ports:
-      - "3308:3306"  
-    volumes:
-    # Mysql
-    - db:/var/lib/mysql
-    networks: 
-      - nodejss
-
-  web:
+      - "3000:3000"
     depends_on:
       - mysql
-    build: ./BE-RedLightGuardian
-    ports: 
-      - "3011:3011"
-    volumes:
-      - ./BE-RedLightGuardian/src:/app/src
-    restart: unless-stopped
-    container_name: nodejs
-    stdin_open: true
-    tty: true
-    networks: 
-      - nodejss
+    environment:
+      DB_HOST: mysql
+      DB_USER: user1
+      DB_PASSWORD: 123456Aa
+      DB_NAME: pbl4-db
 
-volumes:
-  db:
-
-networks:
-  nodejss:

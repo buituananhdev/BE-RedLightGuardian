@@ -8,12 +8,12 @@ const router = Router();
 router.post('', createUser);
 
 // GET
-router.get('', getAllUsers);
-router.get('/:id', getUserById);
+router.get('', auth, getAllUsers);
+router.get('/:id', auth, getUserById);
 
 // PUT
-router.put('/:id', updateUserById)
+router.put('/:id', auth, updateUserById)
 
 // DELETE
-router.delete('/:id', deleteUserById)
+router.delete('/:id', auth, deleteUserById)
 export default router;
