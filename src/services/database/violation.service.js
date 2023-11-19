@@ -1,10 +1,10 @@
-import Violation from "../../models/violation.js";
+import { Violation, Vehicle, Camera } from '../../models/index.js'
 import { pagingHelper } from "../../utils/index.js";
 import { getOwnerByVehicle } from "./owner.service.js";
 import { getVehicleIdBylicensePlate } from "./vehicle.service.js";
-import mailService from '../../config/smtp.config.js';
+import mailService from "../../config/smtp.config.js";
 import { Op } from "sequelize";
-import { stringify, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const getAllViolation = async (req) => {
   const page = parseInt(req.query.page) || 1;
@@ -38,8 +38,27 @@ const getAllViolation = async (req) => {
   });
 
   const totalViolations = await Violation.count({ where: whereClause });
+  const mappedViolations = await Promise.all(
+    violations.map(async (violation) => {
+      const vehicle = await Vehicle.findByPk(violation.vehicleID);
+      const camera = await Camera.findByPk(violation.cameraID);
+
+      return {
+        id: violation.id,
+        type: violation.type,
+        deadline: violation.deadline,
+        status: violation.status,
+        time: violation.time,
+        imageUrl: violation.imageUrl,
+        licensePlate: vehicle ? vehicle.licensePlate : null,
+        location: camera ? camera.location : null,
+        // Các thông tin khác bạn muốn trả về từ violations
+      };
+    })
+  );
+
   const meta = pagingHelper(page, pageSize, totalViolations);
-  return { violations: violations, meta: meta };
+  return { violations: mappedViolations, meta: meta };
 };
 
 const createViolation = async (vehicleID, cameraID, imageUrl) => {
@@ -47,14 +66,23 @@ const createViolation = async (vehicleID, cameraID, imageUrl) => {
   const id = uuidv4();
   const type = "Run a red light";
   const status = "unpaid fine";
-  const violationData = { id, type, deadline: deadlineTimestamp, status, vehicleID, time: Date.now(), cameraID, imageUrl };
+  const violationData = {
+    id,
+    type,
+    deadline: deadlineTimestamp,
+    status,
+    vehicleID,
+    time: Date.now(),
+    cameraID,
+    imageUrl,
+  };
   const newViolation = await Violation.create(violationData);
   const owner = await getOwnerByVehicle(vehicleID);
-  const emailTo = 'bta123aaa@gmail.com';
+  const emailTo = "bta123aaa@gmail.com";
   mailService.sendMail({
     emailTo,
-    emailContent: JSON.stringify(owner)
-  })
+    emailContent: JSON.stringify(owner),
+  });
   return newViolation;
 };
 
@@ -62,14 +90,13 @@ const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
   const violations = [];
   for (const licensePlate of licensePlates) {
     const vehicleID = await getVehicleIdBylicensePlate(licensePlate); // Assume you have a function to get vehicle ID by license plate
-    if(vehicleID) {
+    if (vehicleID) {
       const violation = await createViolation(vehicleID, cameraID, imageUrl);
       violations.push(violation);
     }
   }
   return violations;
 };
-
 
 const getViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
@@ -98,7 +125,7 @@ const formatEmail = (owner) => {
   const tmp = JSON.stringify(owner);
   console.log(tmp);
   return tmp;
-}
+};
 
 export {
   getAllViolation,
@@ -106,5 +133,5 @@ export {
   getViolationById,
   updateViolationById,
   deleteViolationById,
-  createMultipleViolations
+  createMultipleViolations,
 };

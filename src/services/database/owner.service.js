@@ -80,6 +80,15 @@ const updateOwnerById = async (ownerId, updatedData) => {
   return false;
 };
 
+const getOwnerByCitizenIdentification = async (citizen_identification) => {
+  const owner = await Owner.findOne({
+    where: {
+      citizen_identification: citizen_identification
+    },
+  });
+  return owner;
+}
+
 const deleteOwnerById = async (ownerId) => {
   const owner = await Owner.findByPk(ownerId);
   if (owner) {
@@ -105,4 +114,5 @@ export {
   getOwnerByVehicle,
   updateOwnerById,
   deleteOwnerById,
+  getOwnerByCitizenIdentification
 };

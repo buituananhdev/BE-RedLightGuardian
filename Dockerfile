@@ -1,10 +1,13 @@
-FROM node:18.16.0
+FROM node:18
 
-WORKDIR /app/src
+WORKDIR /app
 
-COPY package.json .
-COPY . .
+COPY package*.json ./
 
 RUN yarn install
 
-CMD yarn start
+COPY . .
+
+EXPOSE 3000
+
+CMD ["yarn", "start"]

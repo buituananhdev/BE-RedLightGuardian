@@ -1,23 +1,23 @@
 import { Router } from 'express';
-
+import { auth } from "../middlewares/index.js";
 import { createCamera, getAllCameras, getCameraById, updateCameraById, deleteCameraById, updateCoordinatesCamera } from '../controllers/camera/index.js'
 
 const router = Router();
 
 // POST
-router.post('', createCamera);
+router.post('', auth, createCamera);
 
 // GET
-router.get('', getAllCameras);
-router.get('/:id', getCameraById);
+router.get('', auth, getAllCameras);
+router.get('/:id', auth, getCameraById);
 
 // PUT
-router.put('/:id', updateCameraById);
+router.put('/:id', auth, updateCameraById);
 
 // PATCH
-router.patch('/:id', updateCoordinatesCamera);
+router.patch('/:id', auth, updateCoordinatesCamera);
 // DELETE
-router.delete('/:id', deleteCameraById);
+router.delete('/:id', auth, deleteCameraById);
 
 
 export default router
