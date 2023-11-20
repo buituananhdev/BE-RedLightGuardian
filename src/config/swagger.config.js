@@ -13,7 +13,7 @@ export default {
     basePath: "/api",
     servers: [
       {
-        url: "https://quy-1.pularbacc.com/api/",
+        url: "https://api.buituananh.tech/api/",
         description: "Production Server",
       },
       {
