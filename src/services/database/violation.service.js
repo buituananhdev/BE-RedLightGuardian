@@ -23,11 +23,11 @@ const getAllViolation = async (req) => {
     whereClause.cameraID = req.query.cameraID;
   }
   if (req.query.startDate && req.query.endDate) {
+    const startDate = new Date(req.query.startDate);
+    const endDate = new Date(req.query.endDate);
+
     whereClause.deadline = {
-      [Op.between]: [
-        new Date(req.query.startDate),
-        new Date(req.query.endDate),
-      ],
+      [Op.between]: [startDate, endDate],
     };
   }
 
@@ -52,7 +52,7 @@ const getAllViolation = async (req) => {
         imageUrl: violation.imageUrl,
         licensePlate: vehicle ? vehicle.licensePlate : null,
         location: camera ? camera.location : null,
-        // Các thông tin khác bạn muốn trả về từ violations
+        createdAt: violation.createdAt
       };
     })
   );
@@ -62,7 +62,7 @@ const getAllViolation = async (req) => {
 };
 
 const createViolation = async (vehicleID, cameraID, imageUrl) => {
-  const deadlineTimestamp = Date.now() + 15 * 24 * 60 * 60 * 1000;
+  const deadlineTimestamp = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
   const id = uuidv4();
   const type = "Run a red light";
   const status = "unpaid fine";
@@ -72,7 +72,6 @@ const createViolation = async (vehicleID, cameraID, imageUrl) => {
     deadline: deadlineTimestamp,
     status,
     vehicleID,
-    time: Date.now(),
     cameraID,
     imageUrl,
   };

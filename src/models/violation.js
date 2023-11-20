@@ -9,13 +9,12 @@ const Violation = sequelize.define("violation", {
     primaryKey: true,
   },
   type: Sequelize.ENUM("Run a red light"),
-  deadline: Sequelize.BIGINT,
+  deadline: Sequelize.DATE,
   status: Sequelize.ENUM("paid fine", "unpaid fine", "overdue"),
   vehicleID: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  time: Sequelize.BIGINT,
   cameraID: {
     type: Sequelize.STRING,
     allowNull: false,

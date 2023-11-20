@@ -16,7 +16,7 @@ sequelize
   });
 
 // sequelize.sync({ force: false }).then(() => {
-//     console.log('Database synced');
+//   console.log('Database synced');
 // });
 
 export default sequelize;
