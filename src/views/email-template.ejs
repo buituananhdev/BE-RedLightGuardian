@@ -1,0 +1,71 @@
+<!-- views/email-template.ejs -->
+<html>
+  <head>
+    <title>Violation Report</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        color: #e74c3c;
+      }
+
+      p {
+        margin-bottom: 15px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Thông báo vi phạm giao thông</h1>
+
+    <p>
+      Xin chào <%= ownerName %>,
+    </p>
+
+    <p>
+      Chúng tôi ghi nhận một vi phạm giao thông về việc vượt đèn đỏ.
+      Dưới đây là các chi tiết liên quan:
+    </p>
+
+    <ul>
+      <li>Biển số xe: <%= licensePlate %></li>
+      <li>Thời gian vi phạm: <%= violationTime %></li>
+      <!-- Add more details as needed -->
+    </ul>
+
+    <p>
+      Hình ảnh chụp tại thời điểm vi phạm:
+      <br />
+      <img src="<%= imageUrl %>" alt="Violation Image" />
+    </p>
+
+    <p>
+      Cảm ơn bạn đã tuân thủ các quy tắc giao thông.
+    </p>
+
+    <p>
+      Trân trọng,
+      <br />
+      Đội quản lý vi phạm giao thông
+    </p>
+  </body>
+</html>

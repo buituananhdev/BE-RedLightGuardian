@@ -61,7 +61,7 @@ const getAllViolation = async (req) => {
   return { violations: mappedViolations, meta: meta };
 };
 
-const createViolation = async (vehicleID, cameraID, imageUrl) => {
+const createViolation = async (vehicleID, cameraID, imageUrl, licensePlate) => {
   const deadlineTimestamp = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
   const id = uuidv4();
   const type = "Run a red light";
@@ -80,7 +80,11 @@ const createViolation = async (vehicleID, cameraID, imageUrl) => {
   const emailTo = "bta123aaa@gmail.com";
   mailService.sendMail({
     emailTo,
-    emailContent: JSON.stringify(owner),
+    owner,
+    violation: newViolation,
+    licensePlate,
+    violationTime: deadlineTimestamp,
+    imageUrl
   });
   return newViolation;
 };
@@ -90,7 +94,7 @@ const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
   for (const licensePlate of licensePlates) {
     const vehicleID = await getVehicleIdBylicensePlate(licensePlate); // Assume you have a function to get vehicle ID by license plate
     if (vehicleID) {
-      const violation = await createViolation(vehicleID, cameraID, imageUrl);
+      const violation = await createViolation(vehicleID, cameraID, imageUrl, licensePlate);
       violations.push(violation);
     }
   }
