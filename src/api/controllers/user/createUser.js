@@ -7,7 +7,7 @@ export default async (req, res) => {
       res.status(400).json(responseHelper(2, "Username already exists!"));
     }
     else {
-      res.status(201).json(responseHelper("1", "", user));
+      res.status(201).json(responseHelper(1, "", user));
     }
   } catch (error) {
     res.status(500).json(responseHelper(2, error.message));

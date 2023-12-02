@@ -1,8 +1,8 @@
-import User from "../../models/user.js";
+import { User } from "../../models/index.js";
 import { pagingHelper } from "../../utils/index.js";
 import { Op } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 const getAllUser = async (req) => {
   const page = parseInt(req.query.page) || 1;
@@ -19,7 +19,7 @@ const getAllUser = async (req) => {
   }
 
   const users = await User.findAll({
-    attributes: ['id', 'username', 'email'],
+    attributes: ["id", "username", "email"],
     where: whereClause,
     limit: pageSize,
     offset: offset,
@@ -31,7 +31,7 @@ const getAllUser = async (req) => {
 };
 
 const createUser = async (userData) => {
-  if(await isUsernameExists(userData.username)) {
+  if (await isUsernameExists(userData.username)) {
     return null;
   }
   userData.id = uuidv4();
@@ -55,6 +55,14 @@ const updateUserById = async (userId, updatedData) => {
   return false;
 };
 
+const changePassword = async (userId, newPassword) => {
+  const user = await User.findByPk(userId);
+  const hashPassword = await bcrypt.hash(newPassword, 10);
+  user.password = hashPassword;
+  await user.save();
+  return true;
+};
+
 const deleteUserById = async (userId) => {
   const user = await User.findByPk(userId);
   if (user) {
@@ -67,15 +75,23 @@ const deleteUserById = async (userId) => {
 const isUserExists = async (userId) => {
   const exists = await User.findByPk(userId);
   return exists !== null;
-}
+};
 
 const isUsernameExists = async (userName) => {
   const exists = await User.findOne({
     where: {
-      username: userName
+      username: userName,
     },
   });
   return exists !== null;
-}
+};
 
-export { getAllUser, createUser, getUserById, updateUserById, deleteUserById, isUserExists };
+export {
+  getAllUser,
+  createUser,
+  getUserById,
+  updateUserById,
+  deleteUserById,
+  isUserExists,
+  changePassword,
+};
