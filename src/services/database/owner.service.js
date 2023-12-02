@@ -48,7 +48,7 @@ const getAllOwner = async (req) => {
 };
 
 const createOwner = async (ownerData) => {
-  if(await isCitizenIdentificationExists()) {
+  if(await isCitizenIdentificationExists(ownerData.citizen_identification)) {
     return null;
   }
   ownerData.id = uuidv4();
