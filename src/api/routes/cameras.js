@@ -9,7 +9,7 @@ router.post('', auth, createCamera);
 
 // GET
 router.get('', auth, getAllCameras);
-router.get('/:id', auth, getCameraById);
+router.get('/:id', getCameraById);
 
 // PUT
 router.put('/:id', auth, updateCameraById);
