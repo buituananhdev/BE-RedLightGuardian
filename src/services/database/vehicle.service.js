@@ -84,6 +84,11 @@ const getVehicleById = async (vehicleId) => {
   return vehicle;
 };
 
+const getVehicleLicensePlate = async (vehicleId) => {
+  const vehicle = await Vehicle.findByPk(vehicleId);
+  return vehicle.licensePlate;
+};
+
 const getVehicleIdBylicensePlate = async (licensePlate) => {
   const vehicle = await Vehicle.findOne({ where: { licensePlate: licensePlate } });
   if(!vehicle) {
@@ -126,4 +131,5 @@ export {
   getVehicleIdBylicensePlate,
   updateVehicleById,
   deleteVehicleById,
+  getVehicleLicensePlate
 };

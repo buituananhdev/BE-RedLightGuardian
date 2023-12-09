@@ -1,6 +1,6 @@
 import { dbDatabase, dbUser, dbPassword, dbHost } from './index.js';
 import Sequelize from 'sequelize';
-console.log(dbPassword)
+
 const sequelize = new Sequelize(dbDatabase, dbUser, dbPassword, {
   host: dbHost,
   dialect: 'mysql',
@@ -15,8 +15,8 @@ sequelize
     console.error('MySQL connected fail:', err);
   });
 
-sequelize.sync({ force: false }).then(() => {
-  console.log('Database synced');
-});
+// sequelize.sync({ force: false }).then(() => {
+//   console.log('Database synced');
+// });
 
 export default sequelize;
