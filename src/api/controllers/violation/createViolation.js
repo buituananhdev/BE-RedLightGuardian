@@ -4,11 +4,14 @@ import { createMultipleViolations } from '../../../services/database/violation.s
 export default async (req, res) => {
   try {
     const { licensePlates, cameraID } = req.body;
-    console.log(licensePlates);
-    console.log("image", req.file);
 
     if (!req.file) {
       res.status(400).json(responseHelper(2, "No file uploaded!"));
+      return;
+    }
+
+    if(licensePlates.length === 0) {
+      res.status(400).json(responseHelper(2, "There are no license plates!"));
       return;
     }
 
