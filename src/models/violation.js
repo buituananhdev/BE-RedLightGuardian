@@ -10,7 +10,7 @@ const Violation = sequelize.define("violation", {
   },
   type: Sequelize.ENUM("Run a red light"),
   deadline: Sequelize.DATE,
-  status: Sequelize.ENUM("paid fine", "unpaid fine", "overdue"),
+  status: Sequelize.ENUM("paid fine", "unpaid fine", "overdue", "cancel"),
   vehicleID: {
     type: Sequelize.STRING,
     allowNull: false,
