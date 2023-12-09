@@ -90,9 +90,12 @@ const createViolation = async (vehicleID, cameraID, imageUrl, licensePlate) => {
 };
 
 const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
+  if (!Array.isArray(licensePlates)) {
+    licensePlates = [licensePlates];
+  }
   const violations = [];
   for (const licensePlate of licensePlates) {
-    const vehicleID = await getVehicleIdBylicensePlate(licensePlate); // Assume you have a function to get vehicle ID by license plate
+    const vehicleID = await getVehicleIdBylicensePlate(licensePlate);
     if (vehicleID) {
       const violation = await createViolation(vehicleID, cameraID, imageUrl, licensePlate);
       violations.push(violation);
@@ -100,6 +103,7 @@ const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
   }
   return violations;
 };
+
 
 const getViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
