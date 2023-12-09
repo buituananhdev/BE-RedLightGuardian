@@ -1,6 +1,6 @@
 import { dbDatabase, dbUser, dbPassword, dbHost } from './index.js';
 import Sequelize from 'sequelize';
-console.log(dbPassword)
+
 const sequelize = new Sequelize(dbDatabase, dbUser, dbPassword, {
   host: dbHost,
   dialect: 'mysql',

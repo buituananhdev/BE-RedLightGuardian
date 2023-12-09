@@ -1,4 +1,4 @@
-import { Violation, Vehicle, Camera } from '../../models/index.js'
+import { Violation, Vehicle, Camera } from "../../models/index.js";
 import { pagingHelper } from "../../utils/index.js";
 import { getOwnerByVehicle } from "./owner.service.js";
 import { getVehicleIdBylicensePlate } from "./vehicle.service.js";
@@ -52,7 +52,7 @@ const getAllViolation = async (req) => {
         imageUrl: violation.imageUrl,
         licensePlate: vehicle ? vehicle.licensePlate : null,
         location: camera ? camera.location : null,
-        createdAt: violation.createdAt
+        createdAt: violation.createdAt,
       };
     })
   );
@@ -84,7 +84,7 @@ const createViolation = async (vehicleID, cameraID, imageUrl, licensePlate) => {
     violation: newViolation,
     licensePlate,
     violationTime: deadlineTimestamp,
-    imageUrl
+    imageUrl,
   });
   return newViolation;
 };
@@ -97,13 +97,17 @@ const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
   for (const licensePlate of licensePlates) {
     const vehicleID = await getVehicleIdBylicensePlate(licensePlate);
     if (vehicleID) {
-      const violation = await createViolation(vehicleID, cameraID, imageUrl, licensePlate);
+      const violation = await createViolation(
+        vehicleID,
+        cameraID,
+        imageUrl,
+        licensePlate
+      );
       violations.push(violation);
     }
   }
   return violations;
 };
-
 
 const getViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
@@ -119,6 +123,17 @@ const updateViolationById = async (violationId, updatedData) => {
   return false;
 };
 
+const updateStatusViolation = async (violationId, newStatus) => {
+  console.log(newStatus)
+  const violation = await Violation.findByPk(violationId);
+  if (violation) {
+    await violation.update({ status: newStatus });
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const deleteViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
   if (violation) {
@@ -128,12 +143,6 @@ const deleteViolationById = async (violationId) => {
   return false;
 };
 
-const formatEmail = (owner) => {
-  const tmp = JSON.stringify(owner);
-  console.log(tmp);
-  return tmp;
-};
-
 export {
   getAllViolation,
   createViolation,
@@ -141,4 +150,5 @@ export {
   updateViolationById,
   deleteViolationById,
   createMultipleViolations,
+  updateStatusViolation
 };
