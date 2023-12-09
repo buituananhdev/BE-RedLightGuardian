@@ -1,4 +1,4 @@
-import Camera from "../../models/camera.js";
+import { Camera } from "../../models/index.js";
 
 const updateCoordinatesCamera = async (cameraId, newCoordinates) => {
   const camera = await Camera.findByPk(cameraId);
@@ -12,4 +12,9 @@ const updateCoordinatesCamera = async (cameraId, newCoordinates) => {
   return true;
 };
 
-export { updateCoordinatesCamera };
+const getCameraLocation = async (cameraId) => {
+  const camera = await Camera.findByPk(cameraId);
+  return camera.location;
+};
+
+export { updateCoordinatesCamera, getCameraLocation };

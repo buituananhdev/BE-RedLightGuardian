@@ -1,7 +1,8 @@
 import { Violation, Vehicle, Camera } from "../../models/index.js";
 import { pagingHelper } from "../../utils/index.js";
 import { getOwnerByVehicle } from "./owner.service.js";
-import { getVehicleIdBylicensePlate } from "./vehicle.service.js";
+import { getVehicleIdBylicensePlate, getVehicleLicensePlate } from "./vehicle.service.js";
+import { getCameraLocation  } from "./camera.service.js";
 import mailService from "../../config/smtp.config.js";
 import { Op } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
@@ -111,7 +112,12 @@ const createMultipleViolations = async (licensePlates, cameraID, imageUrl) => {
 
 const getViolationById = async (violationId) => {
   const violation = await Violation.findByPk(violationId);
-  return violation;
+  const violationDTO = {...violation.dataValues }
+  violationDTO.licensePlate = await getVehicleLicensePlate(violation.vehicleID);
+  violationDTO.location = await getCameraLocation(violation.cameraID);
+  delete violationDTO.vehicleID;
+  delete violationDTO.cameraID;
+  return violationDTO;
 };
 
 const updateViolationById = async (violationId, updatedData) => {
