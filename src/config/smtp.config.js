@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailService = {
-    async sendMail({ emailTo, owner, violation, licensePlate, violationTime, imageUrl }) {
+    async sendMail({ owner, violation, licensePlate, violationTime, imageUrl }) {
         try {
             const emailTemplatePath = 'views/email-template';
             const templateData = {
@@ -36,7 +36,7 @@ const mailService = {
 
             await transporter.sendMail({
                 from: smtpEmail,
-                to: emailTo,
+                to: owner.email,
                 subject: "Thông báo vi phạm giao thông",
                 html: renderedHtml,
             });
