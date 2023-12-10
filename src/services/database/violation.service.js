@@ -78,9 +78,7 @@ const createViolation = async (vehicleID, cameraID, imageUrl, licensePlate) => {
   };
   const newViolation = await Violation.create(violationData);
   const owner = await getOwnerByVehicle(vehicleID);
-  const emailTo = "bta123aaa@gmail.com";
   mailService.sendMail({
-    emailTo,
     owner,
     violation: newViolation,
     licensePlate,
