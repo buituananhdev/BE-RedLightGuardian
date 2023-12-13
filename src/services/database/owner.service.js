@@ -62,14 +62,23 @@ const getOwnerById = async (ownerId) => {
 };
 
 const getOwnerByVehicle = async (vehicleId) => {
-  const owner = Vehicle.findOne({
+  const vehicle = await Vehicle.findOne({
     where: { id: vehicleId },
     include: [
-      {  model: Owner, where: { id: Sequelize.col("vehicle.ownerID") }},
+      { model: Owner, attributes: ['id', 'name', 'citizen_identification', 'address', 'email'] },
     ],
   });
+
+  if (!vehicle) {
+    console.log('Vehicle not found');
+    return null;
+  }
+
+  const owner = vehicle.owner;
+
   return owner;
 };
+
 
 const updateOwnerById = async (ownerId, updatedData) => {
   const owner = await Owner.findByPk(ownerId);
