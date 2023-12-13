@@ -7,9 +7,9 @@ const Token = sequelize.define('token', {
     primaryKey: true,
     autoIncrement: true,
   },
-  access_token: Sequelize.STRING,
-  refresh_token: Sequelize.STRING,
-  userId: Sequelize.STRING,
+  access_token: Sequelize.STRING(100),
+  refresh_token: Sequelize.STRING(100),
+  userId: Sequelize.STRING(30),
   expiresIn: Sequelize.DATE,
 });
 

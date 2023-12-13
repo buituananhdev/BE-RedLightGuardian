@@ -5,23 +5,33 @@ import Camera from "./camera.js";
 
 const Violation = sequelize.define("violation", {
   id: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(30),
     primaryKey: true,
   },
-  type: Sequelize.ENUM("Run a red light"),
+  type: {
+    type: Sequelize.ENUM("Run a red light"),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
+  },
   deadline: Sequelize.DATE,
-  status: Sequelize.ENUM("paid fine", "unpaid fine", "overdue", "cancel"),
+  status: {
+    type: Sequelize.ENUM("paid fine", "unpaid fine", "overdue", "cancel"),
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
+  },
   vehicleID: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(30),
     allowNull: false,
   },
   cameraID: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(30),
     allowNull: false,
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(50),
     allowNull: false,
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
   },
 });
 
