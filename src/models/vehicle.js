@@ -8,13 +8,13 @@ const Vehicle = sequelize.define("vehicle", {
     primaryKey: true,
   },
   vehicleName: {
-    type: Sequelize.STRING(50),
+    type: Sequelize.STRING(100),
     allowNull: false,
     charset: 'utf8mb4', // Thêm hỗ trợ UTF-8
     collate: 'utf8mb4_unicode_ci', // Thêm hỗ trợ kiểu ký tự
   },
   licensePlate: {
-    type: Sequelize.STRING(20),
+    type: Sequelize.STRING(100),
     unique: true
   },
   ownerID: {
@@ -25,27 +25,27 @@ const Vehicle = sequelize.define("vehicle", {
   vehicleType: Sequelize.ENUM("car", "motorcycle"),
   engineCapacity: Sequelize.FLOAT,
   color: {
-    type: Sequelize.STRING(20),
+    type: Sequelize.STRING(100),
     allowNull: false,
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
   },
   frameNumber: {
-    type: Sequelize.STRING(20),
+    type: Sequelize.STRING(100),
     allowNull: false
   },
   engineNumber: {
-    type: Sequelize.STRING(20),
+    type: Sequelize.STRING(100),
     allowNull: false
   },
   brand: {
-    type: Sequelize.STRING(20),
+    type: Sequelize.STRING(100),
     allowNull: false,
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
   },
   imageUrl: {
-    type: Sequelize.STRING(50),
+    type: Sequelize.STRING(500),
     allowNull: false,
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',

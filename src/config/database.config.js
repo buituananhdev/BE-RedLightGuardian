@@ -15,8 +15,8 @@ sequelize
     console.error('MySQL connected fail:', err);
   });
 
-// sequelize.sync({ force: false }).then(() => {
-//   console.log('Database synced');
-// });
+sequelize.sync({ force: false }).then(() => {
+  console.log('Database synced');
+});
 
 export default sequelize;
