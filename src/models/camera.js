@@ -19,7 +19,7 @@ const Camera = sequelize.define('camera', {
     collate: 'utf8mb4_unicode_ci',
   },
   coordinates: {
-    type: Sequelize.STRING(50),
+    type: Sequelize.STRING(500),
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
   },
