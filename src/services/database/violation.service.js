@@ -128,7 +128,6 @@ const updateViolationById = async (violationId, updatedData) => {
 };
 
 const updateStatusViolation = async (violationId, newStatus) => {
-  console.log(newStatus)
   const violation = await Violation.findByPk(violationId);
   if (violation) {
     await violation.update({ status: newStatus });
