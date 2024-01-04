@@ -28,7 +28,7 @@ const Violation = sequelize.define("violation", {
     allowNull: false,
   },
   imageUrl: {
-    type: Sequelize.STRING(50),
+    type: Sequelize.STRING(500),
     allowNull: false,
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
